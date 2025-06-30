@@ -1,6 +1,8 @@
 import { useState } from "react";
 import axios from "axios";
 
+
+
 export default function AdminAddStudent() {
   const [form, setForm] = useState({
     name: "",
@@ -8,7 +10,7 @@ export default function AdminAddStudent() {
     address: "",
     phone: "",
     course: "",
-    joined_on: "",
+    joined_date: "",
     aadhar: "",
     photo: null,
   });
@@ -45,7 +47,7 @@ export default function AdminAddStudent() {
         address: "",
         phone: "",
         course: "",
-        joined_on: "",
+        joined_date: "",
         aadhar: "",
         photo: null,
       });
@@ -63,7 +65,7 @@ export default function AdminAddStudent() {
         <input name="address" value={form.address} onChange={handleChange} placeholder="Address" className="w-full p-2 border" required />
         <input name="phone" value={form.phone} onChange={handleChange} placeholder="Phone Number" className="w-full p-2 border" required />
         <input name="course" value={form.course} onChange={handleChange} placeholder="Course Name" className="w-full p-2 border" required />
-        <input type="date" name="joined_on" value={form.joined_on} onChange={handleChange} className="w-full p-2 border" required />
+        <input type="date" name="joined_date" value={form.joined_date} onChange={handleChange} className="w-full p-2 border" required />
         <input name="aadhar" value={form.aadhar} onChange={handleChange} placeholder="Aadhar Number" className="w-full p-2 border" required />
         <input type="file" name="photo" onChange={handleChange} className="w-full p-2 border" accept="image/*" required />
         <button type="submit" className="bg-blue-700 text-white px-4 py-2 rounded w-full">Add Student</button>

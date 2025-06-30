@@ -41,7 +41,7 @@ function App() {
               }
             />
 
-            <Routes
+            <Route
               path="/admin/students"
               element={
                 <ProtectedRoute>

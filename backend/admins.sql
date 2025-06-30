@@ -16,7 +16,7 @@ CREATE TABLE students (
   address TEXT,
   phone VARCHAR(15),
   course VARCHAR(100),
-  joined_on DATE,
+  joined_date DATE,
   aadhar VARCHAR(20),
   photo VARCHAR(255)  -- Store filename here (path on server)
 );
