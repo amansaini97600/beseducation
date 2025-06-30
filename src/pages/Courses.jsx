@@ -16,7 +16,32 @@ export default function Courses() {
       image: computerCourse,
     },
     {
-      title: "Tally + GST",
+      title: "ADCA Computer Course",
+      description: "Learn MS Office, Internet, Email, Typing and more.",
+      image: computerCourse,
+    },
+    {
+      title: "DCA Computer Course",
+      description: "Learn MS Office, Internet, Email, Typing and more.",
+      image: computerCourse,
+    },
+    {
+      title: "ACC Computer Course",
+      description: "Learn MS Office, Internet, Email, Typing and more.",
+      image: computerCourse,
+    },
+    {
+      title: "Hindi And English Typing",
+      description: "Learn MS Office, Internet, Email, Typing and more.",
+      image: computerCourse,
+    },
+    {
+      title: "Tally + GST + Payroll",
+      description: "Master accounting software with GST billing.",
+      image: tally,
+    },
+    {
+      title: "O'level",
       description: "Master accounting software with GST billing.",
       image: tally,
     },
@@ -42,6 +67,26 @@ export default function Courses() {
     },
     {
       title: "Java Programming",
+      description: "Learn Python from scratch with practical examples.",
+      image: java,
+    },
+    {
+      title: "Full Web Designing",
+      description: "Learn Python from scratch with practical examples.",
+      image: java,
+    },
+    {
+      title: "HTML Language",
+      description: "Learn Python from scratch with practical examples.",
+      image: java,
+    },
+    {
+      title: "CSS Language",
+      description: "Learn Python from scratch with practical examples.",
+      image: java,
+    },
+    {
+      title: "JavaScript Language",
       description: "Learn Python from scratch with practical examples.",
       image: java,
     },
