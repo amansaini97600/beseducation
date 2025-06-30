@@ -12,6 +12,15 @@ app.use(cors());
 app.use(express.json());
 
 
+// async function generateHash() {
+//   const hash = await bcrypt.hash("admin123", 10);
+//   console.log("Hashed Password:", hash);
+// }
+
+// generateHash();
+
+
+
 app.post("/api/admin/login", async (req, res) => {
   const { email, password } = req.body;
 
@@ -83,6 +92,34 @@ app.post("/api/admin/students", upload.single("photo"), async (req, res) => {
   }
 });
 
+function verifyToken(req, res, next) {
+  const token = req.headers.authorization?.split(" ")[1];
+
+  if (!token) return res.status(401).json({ message: "Unauthorized" });
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded;
+    next();
+  } catch (err) {
+    return res.status(401).json({ message: "Invalid token" });
+  }
+}
+
+app.get("/api/students", verifyToken, async (req, res) => {
+  try {
+    const [rows] = await db.execute("SELECT * FROM students ORDER BY id DESC");
+    res.json(rows);
+  } catch (err) {
+    res.status(500).json({ message: "Error fetching students" });
+  }
+});
+
+
+// Route using token
+app.get("/api/admin/data", verifyToken, (req, res) => {
+  res.json({ message: "Secure data" });
+});
 
 
 

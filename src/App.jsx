@@ -8,6 +8,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import AdminAddStudent from "./admin/AdminAddStudent";
+import StudentList from "./admin/studentList";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/courses" element={<Courses />} />
             <Route path="/admin-login" element={<AdminLogin />} />
+            {/* <Route path="/admin/add-student" element={<AdminAddStudent />} /> */}
 
             <Route
               path="/admin/add-student"
@@ -39,9 +41,15 @@ function App() {
               }
             />
 
+            <Routes
+              path="/admin/students"
+              element={
+                <ProtectedRoute>
+                  <StudentList />
+                </ProtectedRoute>
+              }
+            />
           </Routes>
-
-
         </div>
         <Footer />
       </div>

@@ -8,3 +8,28 @@ INSERT INTO admins (email, password) VALUES (
     'admin@cec.com',
     '$2a$10$CwTycUXWue0Thq9StjUM0uJ8o.Z.8YytPRxv7ZG0CGZSzQzR4pL5a'
 );
+
+CREATE TABLE students (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(100),
+  father_name VARCHAR(100),
+  address TEXT,
+  phone VARCHAR(15),
+  course VARCHAR(100),
+  joined_on DATE,
+  aadhar VARCHAR(20),
+  photo VARCHAR(255)  -- Store filename here (path on server)
+);
+
+
+--! generate password
+-- const bcrypt = require("bcryptjs");
+
+-- async function generateHash() {
+--   const hash = await bcrypt.hash("admin123", 10);
+--   console.log("Hashed Password:", hash);
+-- }
+
+-- generateHash();
+
+
