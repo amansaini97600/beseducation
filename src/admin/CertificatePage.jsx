@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
+import certificateImg from './images/certificate.png';
 
 export default function CertificatePage() {
   const { id } = useParams();
@@ -39,26 +40,29 @@ export default function CertificatePage() {
   }
 
   return (
-    <div className="p-4">
+    <div className="p-4" >
       <div className="mb-4">
         <button
           onClick={handlePrint}
-          className="bg-blue-600 text-white px-4 py-2 rounded"
+          className="bg-blue-600 text-white px-4 py-2 rounded no-print"
         >
           Print Certificate
         </button>
       </div>
 
       <div
+        id="print-area"
         ref={printRef}
-        className="w-full max-w-4xl mx-auto border p-4 bg-white"
         style={{
-          backgroundImage: `url('/images/certificate-template.png')`,
-          backgroundSize: 'cover',
-          backgroundRepeat: 'no-repeat',
-          backgroundPosition: 'center',
-          minHeight: '900px',
-          position: 'relative',
+          width: "297mm",
+          height: "210mm",
+          backgroundImage: `url('${certificateImg}')`,
+          backgroundSize: "100% 100%",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center",
+          position: "relative",
+          padding: "0mm",
+          boxSizing: "border-box"
         }}
       >
         <div className="absolute inset-0 p-20 text-lg leading-relaxed text-black">
@@ -69,7 +73,7 @@ export default function CertificatePage() {
             S/o D/o: <strong>{data.fatherName}</strong>
           </p>
           <p>
-            At: <strong>{data.center || "Your Center Name"}</strong>
+            At: <strong>{data.center || "CEC COMPUTER CENTER DHAMPUR"}</strong>
           </p>
           <p>
             Duration: <strong>{data.duration}</strong>
