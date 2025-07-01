@@ -7,91 +7,71 @@ export default function StudentList() {
   const [students, setStudents] = useState([]);
   const [search, setSearch] = useState("");
   const [filterCourse, setFilterCourse] = useState("");
-  const [page, setPage] = useState(1);
-  const [limit] = useState(10); // Students per page
-  const [total, setTotal] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const studentsPerPage = 10;
 
+  const [isEditOpen, setIsEditOpen] = useState(false);
+  const [selectedStudent, setSelectedStudent] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/students?page=${page}&limit=${limit}`, {
+    fetch("http://localhost:5000/api/students", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("adminToken")}`
       }
-    })
-      .then(res => res.json())
-      .then(data => {
-        setStudents(data.students);
-        setTotal(data.total);
-      });
-  }, [page]);
-
-  useEffect(() => {
-    const token = localStorage.getItem("adminToken");
-    fetch("http://localhost:5000/api/students", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
     })
       .then(res => res.json())
       .then(data => setStudents(data))
       .catch(console.error);
   }, []);
 
-  const filtered = (students || []).filter((s) =>
-    s.name.toLowerCase().includes(search.toLowerCase()) &&
-    (filterCourse ? s.course === filterCourse : true)
-  );
-
-  const courses = [...new Set((students || []).map(s => s.course))];
-
-  // DELETE FUNCTION
   const handleDelete = async (id) => {
-    const confirm = window.confirm("Are you sure you want to delete?");
-    if (!confirm) return;
-
-    const token = localStorage.getItem("adminToken");
+    if (!window.confirm("Are you sure you want to delete?")) return;
     try {
       await fetch(`http://localhost:5000/api/students/${id}`, {
         method: "DELETE",
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${localStorage.getItem("adminToken")}`,
         },
       });
       setStudents(prev => prev.filter(s => s.id !== id));
-    } catch (err) {
+    } catch {
       alert("Failed to delete student");
     }
   };
-
-  const [isEditOpen, setIsEditOpen] = useState(false);
-  const [selectedStudent, setSelectedStudent] = useState(null);
 
   const handleEdit = (student) => {
     setSelectedStudent(student);
     setIsEditOpen(true);
   };
 
-  const handleSave = async (updatedData) => {
-    const token = localStorage.getItem("adminToken");
+  const handleSave = async (updated) => {
     try {
-      await fetch(`http://localhost:5000/api/students/${updatedData.id}`, {
+      await fetch(`http://localhost:5000/api/students/${updated.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${localStorage.getItem("adminToken")}`,
         },
-        body: JSON.stringify(updatedData),
+        body: JSON.stringify(updated),
       });
-      setStudents((prev) =>
-        prev.map((s) => (s.id === updatedData.id ? updatedData : s))
-      );
+      setStudents(prev => prev.map(s => (s.id === updated.id ? updated : s)));
       setIsEditOpen(false);
-    } catch (err) {
+    } catch {
       alert("Failed to update student");
     }
   };
 
+  const filtered = students?.filter((s) =>
+    s.name.toLowerCase().includes(search.toLowerCase()) &&
+    (filterCourse ? s.course === filterCourse : true)
+  );
 
+  const courses = [...new Set(students.map(s => s.course))];
+  const totalPages = Math.ceil(filtered.length / studentsPerPage);
+  const currentStudents = filtered.slice(
+    (currentPage - 1) * studentsPerPage,
+    currentPage * studentsPerPage
+  );
 
   return (
     <div className="flex">
@@ -106,13 +86,18 @@ export default function StudentList() {
               type="text"
               placeholder="Search by name"
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={(e) => {
+                setSearch(e.target.value);
+                setCurrentPage(1);
+              }}
               className="p-2 border rounded w-1/2"
             />
-
             <select
               value={filterCourse}
-              onChange={(e) => setFilterCourse(e.target.value)}
+              onChange={(e) => {
+                setFilterCourse(e.target.value);
+                setCurrentPage(1);
+              }}
               className="p-2 border rounded"
             >
               <option value="">All Courses</option>
@@ -121,7 +106,6 @@ export default function StudentList() {
               ))}
             </select>
           </div>
-          
 
           <table className="w-full bg-white rounded shadow overflow-hidden">
             <thead className="bg-blue-700 text-white">
@@ -135,17 +119,15 @@ export default function StudentList() {
               </tr>
             </thead>
             <tbody>
-              {filtered.map((student) => (
+              {currentStudents.map((student) => (
                 <tr key={student.id} className="text-center border-b">
                   <td className="p-2">{student.name}</td>
                   <td className="p-2">{student.father_name}</td>
                   <td className="p-2">{student.phone}</td>
                   <td className="p-2">{student.course}</td>
-                  {/* <td className="p-2">{student.joined_date}</td> */}
                   <td className="p-2">
-                    {new Date(student.joined_date).toLocaleDateString('en-GB')}
+                    {new Date(student.joined_date).toLocaleDateString("en-GB")}
                   </td>
-
                   <td className="p-2">
                     <button
                       onClick={() => handleEdit(student)}
@@ -159,14 +141,16 @@ export default function StudentList() {
                     >
                       Delete
                     </button>
-
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
 
-          {filtered.length === 0 && <p className="text-center mt-4 text-gray-600">No students found</p>}
+          {filtered.length === 0 && (
+            <p className="text-center mt-4 text-gray-600">No students found</p>
+          )}
+
           <EditStudentModal
             isOpen={isEditOpen}
             onClose={() => setIsEditOpen(false)}
@@ -174,6 +158,35 @@ export default function StudentList() {
             onSave={handleSave}
           />
 
+          <div className="flex justify-center mt-6 space-x-2">
+            <button
+              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+              disabled={currentPage === 1}
+              className="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300 disabled:opacity-50"
+            >
+              Previous
+            </button>
+            {Array.from({ length: totalPages }, (_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentPage(index + 1)}
+                className={`px-3 py-1 rounded ${
+                  currentPage === index + 1
+                    ? "bg-blue-600 text-white"
+                    : "bg-gray-200 hover:bg-gray-300"
+                }`}
+              >
+                {index + 1}
+              </button>
+            ))}
+            <button
+              onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+              disabled={currentPage === totalPages}
+              className="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300 disabled:opacity-50"
+            >
+              Next
+            </button>
+          </div>
         </div>
       </div>
     </div>

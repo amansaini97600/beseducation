@@ -9,6 +9,8 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import AdminAddStudent from "./admin/AdminAddStudent";
 import StudentList from "./admin/studentList";
+import CertificateForm from "./admin/CertificateForm";
+import CertificatePage from "./admin/CertificatePage";
 
 function App() {
   return (
@@ -21,6 +23,9 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/courses" element={<Courses />} />
             <Route path="/admin-login" element={<AdminLogin />} />
+            <Route path="/admin/generate-certificate" element={<CertificateForm />} />
+            <Route path="/admin/certificate/:id" element={<CertificatePage />} />
+
             {/* <Route path="/admin/add-student" element={<AdminAddStudent />} /> */}
 
             <Route

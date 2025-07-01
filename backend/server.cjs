@@ -162,6 +162,59 @@ app.get("/api/students", async (req, res) => {
 });
 
 
+// app.post("/api/certificates", verifyToken, async (req, res) => {
+//   const {
+//     name,
+//     fatherName,
+//     course,
+//     duration,
+//     issueDate,
+//     certificateType,
+//     certificateNumber,
+//     grade,
+//     completionDate
+//   } = req.body;
+
+//   try {
+//     const [result] = await db.execute(
+//       `INSERT INTO certificates 
+//         (name, father_name, course, duration, issue_date, type, certificate_number, grade, completion_date) 
+//        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+//       [
+//         name,
+//         fatherName,
+//         course,
+//         duration,
+//         issueDate,
+//         certificateType,
+//         certificateNumber || null,
+//         grade,
+//         completionDate || null,
+//       ]
+//     );
+
+//     // Send back the newly inserted certificate's ID
+//     res.json({ message: "Certificate saved successfully", id: result.insertId });
+//   } catch (err) {
+//     console.error("Insert error:", err);
+//     res.status(500).json({ message: "Database insert failed" });
+//   }
+// });
+
+// Backend route
+app.get("/api/certificates/:id", verifyToken, async (req, res) => {
+  const { id } = req.params;
+  try {
+    const [result] = await db.execute("SELECT * FROM certificates WHERE id = ?", [id]);
+    if (result.length === 0) return res.status(404).json({ message: "Not found" });
+    res.json(result[0]);
+  } catch (err) {
+    console.error("Error in fetch by ID:", err);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
+
 // Route using token
 app.get("/api/admin/data", verifyToken, (req, res) => {
   res.json({ message: "Secure data" });
