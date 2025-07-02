@@ -11,7 +11,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-
 // async function generateHash() {
 //   const hash = await bcrypt.hash("admin123", 10);
 //   console.log("Hashed Password:", hash);
@@ -19,13 +18,13 @@ app.use(express.json());
 
 // generateHash();
 
-
-
 app.post("/api/admin/login", async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const [rows] = await db.execute("SELECT * FROM admins WHERE email = ?", [email]);
+    const [rows] = await db.execute("SELECT * FROM admins WHERE email = ?", [
+      email,
+    ]);
 
     if (rows.length === 0) {
       return res.status(401).json({ message: "Email not found" });
@@ -33,28 +32,30 @@ app.post("/api/admin/login", async (req, res) => {
 
     const admin = rows[0];
     const isMatch = await bcrypt.compare(password, admin.password);
-// console.log("Form Password:", password);
+    // console.log("Form Password:", password);
 
-//     console.log("Password Match?", isMatch);
+    //     console.log("Password Match?", isMatch);
 
     if (!isMatch) {
       return res.status(401).json({ message: "Invalid password" });
     }
-    
-    
-    const token = jwt.sign({ id: admin.id, email: admin.email }, process.env.JWT_SECRET, {
-      expiresIn: "1h"
-    });
-//     console.log("Form Email:", email);
-// console.log("DB Email:", admin.email);
-// console.log("DB Hash:", admin.password);
+
+    const token = jwt.sign(
+      { id: admin.id, email: admin.email },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "1h",
+      }
+    );
+    //     console.log("Form Email:", email);
+    // console.log("DB Email:", admin.email);
+    // console.log("DB Hash:", admin.password);
 
     res.json({ token });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Server error" });
   }
-
 });
 
 app.listen(process.env.PORT, () => {
@@ -69,14 +70,15 @@ const storage = multer.diskStorage({
   filename: (req, file, cb) => {
     const uniqueName = Date.now() + "-" + file.originalname;
     cb(null, uniqueName);
-  }
+  },
 });
 
 const upload = multer({ storage });
 
 // POST route to add student
 app.post("/api/admin/students", upload.single("photo"), async (req, res) => {
-  const { name, father_name, address, phone, course, joined_date, aadhar } = req.body;
+  const { name, father_name, address, phone, course, joined_date, aadhar } =
+    req.body;
   const photo = req.file ? req.file.filename : null;
 
   try {
@@ -115,10 +117,9 @@ app.get("/api/students", verifyToken, async (req, res) => {
   }
 });
 
-
-
 app.put("/api/students/:id", verifyToken, async (req, res) => {
-  const { name, father_name, phone, course, joined_date, address, aadhar } = req.body;
+  const { name, father_name, phone, course, joined_date, address, aadhar } =
+    req.body;
   const { id } = req.params;
 
   try {
@@ -150,9 +151,12 @@ app.get("/api/students", async (req, res) => {
 
   try {
     const [students] = await db.execute(
-      "SELECT * FROM students LIMIT ? OFFSET ?", [limit, offset]
+      "SELECT * FROM students LIMIT ? OFFSET ?",
+      [limit, offset]
     );
-    const [[{ total }]] = await db.execute("SELECT COUNT(*) as total FROM students");
+    const [[{ total }]] = await db.execute(
+      "SELECT COUNT(*) as total FROM students"
+    );
 
     res.json({ students, total });
   } catch (err) {
@@ -162,8 +166,21 @@ app.get("/api/students", async (req, res) => {
 });
 
 // add certificates
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-app.post("/api/certificates", verifyToken, async (req, res) => {
+const cert_storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "uploads/cert_photos"); // make sure this folder exists
+  },
+  filename: function (req, file, cb) {
+    const uniqueName = Date.now() + "-" + file.originalname;
+    cb(null, uniqueName);
+  },
+});
+
+const cert_upload = multer({storage: cert_storage });
+
+app.post("/api/certificates", verifyToken,  cert_upload.single("photo"), async (req, res) => {
   const {
     name,
     fatherName,
@@ -173,13 +190,15 @@ app.post("/api/certificates", verifyToken, async (req, res) => {
     certificateType,
     certificateNumber,
     grade,
-    completionDate
   } = req.body;
+
+  const photoPath = req.file ? "/uploads/cert_photos/" + req.file.filename : null;
+console.log("Photo to send:", photoPath);
 
   try {
     const [result] = await db.execute(
       `INSERT INTO certificates 
-        (name, father_name, course, duration, issue_date, type, certificate_number, grade, completion_date) 
+        (name, father_name, course, duration, issue_date, type, certificate_number, grade,photo) 
        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         name,
@@ -190,12 +209,15 @@ app.post("/api/certificates", verifyToken, async (req, res) => {
         certificateType,
         certificateNumber || null,
         grade,
-        completionDate || null,
+        photoPath,
       ]
     );
 
     // Send back the newly inserted certificate's ID
-    res.json({ message: "Certificate saved successfully", id: result.insertId });
+    res.json({
+      message: "Certificate saved successfully",
+      id: result.insertId,
+    });
   } catch (err) {
     console.error("Insert error:", err);
     res.status(500).json({ message: "Database insert failed" });
@@ -206,8 +228,12 @@ app.post("/api/certificates", verifyToken, async (req, res) => {
 app.get("/api/certificates/:id", verifyToken, async (req, res) => {
   const { id } = req.params;
   try {
-    const [result] = await db.execute("SELECT * FROM certificates WHERE id = ?", [id]);
-    if (result.length === 0) return res.status(404).json({ message: "Not found" });
+    const [result] = await db.execute(
+      "SELECT * FROM certificates WHERE id = ?",
+      [id]
+    );
+    if (result.length === 0)
+      return res.status(404).json({ message: "Not found" });
     res.json(result[0]);
   } catch (err) {
     console.error("Error in fetch by ID:", err);
@@ -215,13 +241,7 @@ app.get("/api/certificates/:id", verifyToken, async (req, res) => {
   }
 });
 
-
 // Route using token
 app.get("/api/admin/data", verifyToken, (req, res) => {
   res.json({ message: "Secure data" });
 });
-
-
-
-
-

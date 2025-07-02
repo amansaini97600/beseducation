@@ -6,6 +6,8 @@ import AdminHeader from "../components/AdminHeader";
 
 export default function CertificateForm() {
     const navigate = useNavigate();
+    const [photo, setPhoto] = useState(null);
+
 
     const [formData, setFormData] = useState({
         name: "",
@@ -23,45 +25,34 @@ export default function CertificateForm() {
         setFormData((prev) => ({ ...prev, [name]: value }));
     };
 
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault();
-    //     try {
-    //         const res = await axios.post("http://localhost:5000/api/certificates", formData, {
-    //             headers: {
-    //                 Authorization: `Bearer ${localStorage.getItem("adminToken")}`,
-    //             },
-    //         });
-    //         const certificateId = res.data.id;
-    //         if (certificateId) {
-    //             navigate(`/admin/certificate/${certificateId}`);
-    //         } else {
-    //             alert("Certificate generated but ID missing in response.");
-    //         }
-    //     } catch (err) {
-    //         console.error(err);
-    //         alert("Failed to generate certificate");
-    //     }
-    // };
     const handleSubmit = async (e) => {
-  e.preventDefault();
-  try {
-    const res = await axios.post("http://localhost:5000/api/certificates", formData, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("adminToken")}`,
-      },
-    });
+        e.preventDefault();
 
-    const certificateId = res.data.id;
-    if (certificateId) {
-      navigate(`/admin/certificate/${certificateId}`);
-    } else {
-      alert("Certificate generated but ID missing in response.");
-    }
-  } catch (err) {
-    console.error(err);
-    alert("Failed to generate certificate");
-  }
-};
+        const form = new FormData();
+        form.append("photo", photo);
+        for (const key in formData) {
+            form.append(key, formData[key]);
+        }
+
+        try {
+            const res = await axios.post("http://localhost:5000/api/certificates", form, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("adminToken")}`,
+                    "Content-Type": "multipart/form-data",
+                },
+            });
+
+            const certificateId = res.data.id;
+            if (certificateId) {
+                navigate(`/admin/certificate/${certificateId}`);
+            } else {
+                alert("Certificate generated but ID missing in response.");
+            }
+        } catch (err) {
+            console.error(err);
+            alert("Failed to generate certificate");
+        }
+    };
 
 
     return (
@@ -124,15 +115,6 @@ export default function CertificateForm() {
                         />
 
                         <input
-                            type="date"
-                            name="completionDate"
-                            value={formData.completionDate}
-                            onChange={handleChange}
-                            className="w-full border p-2 rounded"
-                            required
-                        />
-
-                        <input
                             type="text"
                             name="grade"
                             placeholder="Grade"
@@ -150,6 +132,14 @@ export default function CertificateForm() {
                             className="w-full border p-2 rounded"
                             required
                         />
+
+                        <input
+                            type="file"
+                            accept="image/*"
+                            onChange={(e) => setPhoto(e.target.files[0])}
+                            className="w-full border p-2 rounded"
+                        />
+
 
                         <button
                             type="submit"
