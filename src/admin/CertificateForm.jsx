@@ -23,29 +23,46 @@ export default function CertificateForm() {
         setFormData((prev) => ({ ...prev, [name]: value }));
     };
 
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
+    //     try {
+    //         const res = await axios.post("http://localhost:5000/api/certificates", formData, {
+    //             headers: {
+    //                 Authorization: `Bearer ${localStorage.getItem("adminToken")}`,
+    //             },
+    //         });
+    //         const certificateId = res.data.id;
+    //         if (certificateId) {
+    //             navigate(`/admin/certificate/${certificateId}`);
+    //         } else {
+    //             alert("Certificate generated but ID missing in response.");
+    //         }
+    //     } catch (err) {
+    //         console.error(err);
+    //         alert("Failed to generate certificate");
+    //     }
+    // };
     const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            const res = await axios.post("http://localhost:5000/api/certificates", formData, {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem("adminToken")}`,
-                },
-            });
-            // console.log("Sending data:", formData);
+  e.preventDefault();
+  try {
+    const res = await axios.post("http://localhost:5000/api/certificates", formData, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("adminToken")}`,
+      },
+    });
 
+    const certificateId = res.data.id;
+    if (certificateId) {
+      navigate(`/admin/certificate/${certificateId}`);
+    } else {
+      alert("Certificate generated but ID missing in response.");
+    }
+  } catch (err) {
+    console.error(err);
+    alert("Failed to generate certificate");
+  }
+};
 
-            // Navigate to printable certificate page using returned ID
-            const certificateId = res.data.id;
-            if (certificateId) {
-                navigate(`/admin/certificate/${certificateId}`);
-            } else {
-                alert("Certificate generated but ID missing in response.");
-            }
-        } catch (err) {
-            console.error(err);
-            alert("Failed to generate certificate");
-        }
-    };
 
     return (
         <div className="flex">

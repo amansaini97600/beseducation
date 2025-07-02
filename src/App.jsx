@@ -26,8 +26,6 @@ function App() {
             <Route path="/admin/generate-certificate" element={<CertificateForm />} />
             <Route path="/admin/certificate/:id" element={<CertificatePage />} />
 
-            {/* <Route path="/admin/add-student" element={<AdminAddStudent />} /> */}
-
             <Route
               path="/admin/add-student"
               element={

@@ -11,7 +11,7 @@ export default function Navbar() {
           <Link to="/courses" className="hover:underline">Courses</Link>
           {/* <Link to="/admission" className="hover:underline">Admission</Link> */}
           <Link to="/contact" className="hover:underline">Contact</Link>
-          <Link to="/admin" className="hover:underline">Admin</Link>
+          <Link to="/admin-login" className="hover:underline">Admin</Link>
 
         </div>
       </div>
