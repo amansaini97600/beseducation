@@ -17,6 +17,9 @@ export default function AdminSidebar() {
                 <Link to="/admin/add-student" className="block hover:bg-blue-700 p-2 rounded">
                     Add Student
                 </Link>
+                <Link to="/admin/generate-certificate" className="block hover:bg-blue-700 p-2 rounded">
+                    Generate Certificate
+                </Link>
 
                 <button
                     onClick={() => {

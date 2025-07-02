@@ -54,6 +54,7 @@ function App() {
                 </ProtectedRoute>
               }
             />
+            
           </Routes>
         </div>
         <Footer />

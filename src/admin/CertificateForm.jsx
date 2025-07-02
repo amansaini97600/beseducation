@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import AdminSidebar from "../components/AdminSidebar";
+import AdminHeader from "../components/AdminHeader";
 
 export default function CertificateForm() {
     const navigate = useNavigate();
@@ -29,7 +31,7 @@ export default function CertificateForm() {
                     Authorization: `Bearer ${localStorage.getItem("adminToken")}`,
                 },
             });
-// console.log("Sending data:", formData);
+            // console.log("Sending data:", formData);
 
 
             // Navigate to printable certificate page using returned ID
@@ -46,95 +48,101 @@ export default function CertificateForm() {
     };
 
     return (
-        <div className="max-w-xl mx-auto mt-10 bg-white p-6 rounded shadow">
-            <h2 className="text-2xl font-bold mb-6 text-center">Generate Certificate/Diploma</h2>
+        <div className="flex">
+            <AdminSidebar />
+            <div className="flex-1 bg-gray-100 min-h-screen">
+                <AdminHeader />
+                <div className="max-w-xl mx-auto mt-10 bg-white p-6 rounded shadow">
+                    <h2 className="text-2xl font-bold mb-6 text-center">Generate Certificate/Diploma</h2>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
-                <select
-                    name="certificateType"
-                    value={formData.certificateType}
-                    onChange={handleChange}
-                    className="w-full border p-2 rounded"
-                >
-                    <option value="Diploma">Diploma</option>
-                    <option value="Certificate">Certificate</option>
-                </select>
+                    <form onSubmit={handleSubmit} className="space-y-4">
+                        <select
+                            name="certificateType"
+                            value={formData.certificateType}
+                            onChange={handleChange}
+                            className="w-full border p-2 rounded"
+                        >
+                            <option value="Diploma">Diploma</option>
+                            <option value="Certificate">Certificate</option>
+                        </select>
 
-                <input
-                    type="text"
-                    name="name"
-                    placeholder="Student Name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    className="w-full border p-2 rounded"
-                    required
-                />
+                        <input
+                            type="text"
+                            name="name"
+                            placeholder="Student Name"
+                            value={formData.name}
+                            onChange={handleChange}
+                            className="w-full border p-2 rounded"
+                            required
+                        />
 
-                <input
-                    type="text"
-                    name="fatherName"
-                    placeholder="Father's Name"
-                    value={formData.fatherName}
-                    onChange={handleChange}
-                    className="w-full border p-2 rounded"
-                    required
-                />
+                        <input
+                            type="text"
+                            name="fatherName"
+                            placeholder="Father's Name"
+                            value={formData.fatherName}
+                            onChange={handleChange}
+                            className="w-full border p-2 rounded"
+                            required
+                        />
 
-                <input
-                    type="text"
-                    name="course"
-                    placeholder="Course Name"
-                    value={formData.course}
-                    onChange={handleChange}
-                    className="w-full border p-2 rounded"
-                    required
-                />
+                        <input
+                            type="text"
+                            name="course"
+                            placeholder="Course Name"
+                            value={formData.course}
+                            onChange={handleChange}
+                            className="w-full border p-2 rounded"
+                            required
+                        />
 
-                <input
-                    type="text"
-                    name="duration"
-                    placeholder="Duration (e.g. 6 Months)"
-                    value={formData.duration}
-                    onChange={handleChange}
-                    className="w-full border p-2 rounded"
-                    required
-                />
+                        <input
+                            type="text"
+                            name="duration"
+                            placeholder="Duration (e.g. 6 Months)"
+                            value={formData.duration}
+                            onChange={handleChange}
+                            className="w-full border p-2 rounded"
+                            required
+                        />
 
-                <input
-                    type="date"
-                    name="completionDate"
-                    value={formData.completionDate}
-                    onChange={handleChange}
-                    className="w-full border p-2 rounded"
-                    required
-                />
+                        <input
+                            type="date"
+                            name="completionDate"
+                            value={formData.completionDate}
+                            onChange={handleChange}
+                            className="w-full border p-2 rounded"
+                            required
+                        />
 
-                <input
-                    type="text"
-                    name="grade"
-                    placeholder="Grade"
-                    value={formData.grade}
-                    onChange={handleChange}
-                    className="w-full border p-2 rounded"
-                    required
-                />
+                        <input
+                            type="text"
+                            name="grade"
+                            placeholder="Grade"
+                            value={formData.grade}
+                            onChange={handleChange}
+                            className="w-full border p-2 rounded"
+                            required
+                        />
 
-                <input
-                    type="date"
-                    name="issueDate"
-                    value={formData.issueDate}
-                    onChange={handleChange}
-                    className="w-full border p-2 rounded"
-                    required
-                />
+                        <input
+                            type="date"
+                            name="issueDate"
+                            value={formData.issueDate}
+                            onChange={handleChange}
+                            className="w-full border p-2 rounded"
+                            required
+                        />
 
-                <button
-                    type="submit"
-                    className="mt-4 px-4 py-2 bg-green-600 text-white rounded w-full"
-                >
-                    Generate & Save
-                </button>
-            </form>
+                        <button
+                            type="submit"
+                            className="mt-4 px-4 py-2 bg-green-600 text-white rounded w-full"
+                        >
+                            Generate & Save
+                        </button>
+                    </form>
+                </div>
+            </div>
         </div>
     );
 }
