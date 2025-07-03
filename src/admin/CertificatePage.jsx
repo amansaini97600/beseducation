@@ -8,6 +8,7 @@ export default function CertificatePage() {
   const { id } = useParams();
   const [data, setData] = useState(null);
 
+
   useEffect(() => {
     const fetchCertificate = async () => {
       try {
@@ -59,11 +60,11 @@ export default function CertificatePage() {
 
         <div style="position: absolute; bottom: 303px; left: 300px; font-size: 22px; font-weight: bold;">${data.course}</div>
 
-        <div style="position: absolute; bottom: 303px; right: 250px; font-size: 22px; font-weight: bold;">${data.duration}</div>
+        <div style="position: absolute; bottom: 303px; right: 190px; font-size: 22px; font-weight: bold;">${data.duration}</div>
 
-        <div style="position: absolute; bottom: 266px; left: 540px; font-size: 22px; font-weight: bold";>${data.grade}</div>
+        <div style="position: absolute; bottom: 266px; left: 540px; font-size: 22px; font-weight: bold";>\"${data.grade}\"</div>
 
-        <div style="position: absolute; bottom: 229px; left: 420px; font-size: 22px; font-weight: bold;">${data.regNo || id}MBD/11907</div>
+        <div style="position: absolute; bottom: 229px; left: 420px; font-size: 22px; font-weight: bold;">${data.certificate_number}MBD/11907</div>
 
         <div style="position: absolute; bottom: 229px; right: 140px; font-size: 22px; font-weight: bold;">${new Date(data.issue_date).toLocaleDateString("en-GB")}</div>
 
@@ -151,8 +152,8 @@ export default function CertificatePage() {
             <div style={{ position: "absolute", top: "285px", left: "230px", fontSize: "16px", fontWeight: "bold" }}>{data.father_name}</div>
             <div style={{ position: "absolute", top: "341px", left: "233px", fontSize: "16px", fontWeight: "bold" }}>{data.course}</div>
             <div style={{ position: "absolute", top: "341px", right: "165px", fontSize: "16px", fontWeight: "bold" }}>{data.duration}</div>
-            <div style={{ position: "absolute", bottom: "206px", left: "435px", fontSize: "16px", fontWeight: "bold" }}>{data.grade}</div>
-            <div style={{ position: "absolute", bottom: "179px", left: "300px", fontSize: "16px", fontWeight: "bold" }}>{data.regNo || id}MBD/11907</div>
+            <div style={{ position: "absolute", bottom: "206px", left: "435px", fontSize: "16px", fontWeight: "bold" }}>"{data.grade}"</div>
+            <div style={{ position: "absolute", bottom: "179px", left: "300px", fontSize: "16px", fontWeight: "bold" }}>{data.certificate_number}MBD/11907</div>
             <div style={{ position: "absolute", bottom: "179px", right: "95px", fontSize: "16px", fontWeight: "bold" }}>{new Date(data.issue_date).toLocaleDateString("en-GB")}</div>
             <img
               src={`http://localhost:5000${data.photo}`}

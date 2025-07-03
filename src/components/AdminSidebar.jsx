@@ -21,6 +21,9 @@ export default function AdminSidebar() {
                     Generate Certificate
                 </Link>
 
+                <Link to="/admin/certificates" className="block hover:bg-blue-700 p-2 rounded">All Certificates</Link>
+
+
                 <button
                     onClick={() => {
                         localStorage.removeItem("adminToken");

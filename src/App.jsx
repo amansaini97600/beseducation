@@ -11,6 +11,8 @@ import AdminAddStudent from "./admin/AdminAddStudent";
 import StudentList from "./admin/studentList";
 import CertificateForm from "./admin/CertificateForm";
 import CertificatePage from "./admin/CertificatePage";
+import CertificateList from "./admin/CertificateList";
+import EditCertificate from "./admin/EditCertificate";
 
 function App() {
   return (
@@ -23,8 +25,6 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/courses" element={<Courses />} />
             <Route path="/admin-login" element={<AdminLogin />} />
-            <Route path="/admin/generate-certificate" element={<CertificateForm />} />
-            <Route path="/admin/certificate/:id" element={<CertificatePage />} />
 
             <Route
               path="/admin/add-student"
@@ -49,6 +49,43 @@ function App() {
               element={
                 <ProtectedRoute>
                   <StudentList />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+  path="/admin/generate-certificate"
+  element={
+    <ProtectedRoute>
+      <CertificateForm />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/admin/certificate/:id"
+  element={
+    <ProtectedRoute>
+      <CertificatePage />
+    </ProtectedRoute>
+  }
+/>
+
+            
+            <Route
+              path="/admin/certificates"
+              element={
+                <ProtectedRoute>
+                  <CertificateList />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/admin/edit-certificate/:id"
+              element={
+                <ProtectedRoute>
+                  <EditCertificate />
                 </ProtectedRoute>
               }
             />

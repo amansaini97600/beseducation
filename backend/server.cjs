@@ -178,9 +178,9 @@ const cert_storage = multer.diskStorage({
   },
 });
 
-const cert_upload = multer({storage: cert_storage });
+const cert_upload = multer({ storage: cert_storage });
 
-app.post("/api/certificates", verifyToken,  cert_upload.single("photo"), async (req, res) => {
+app.post("/api/certificates", verifyToken, cert_upload.single("photo"), async (req, res) => {
   const {
     name,
     fatherName,
@@ -188,18 +188,19 @@ app.post("/api/certificates", verifyToken,  cert_upload.single("photo"), async (
     duration,
     issueDate,
     certificateType,
-    certificateNumber,
     grade,
+    aadharNumber,
+    phoneNumber,
   } = req.body;
 
   const photoPath = req.file ? "/uploads/cert_photos/" + req.file.filename : null;
-console.log("Photo to send:", photoPath);
+  console.log("Photo to send:", photoPath);
 
   try {
     const [result] = await db.execute(
       `INSERT INTO certificates 
-        (name, father_name, course, duration, issue_date, type, certificate_number, grade,photo) 
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        (name, father_name, course, duration, issue_date, type, grade,photo,aadhar,phone) 
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         name,
         fatherName,
@@ -207,16 +208,27 @@ console.log("Photo to send:", photoPath);
         duration,
         issueDate,
         certificateType,
-        certificateNumber || null,
         grade,
         photoPath,
+        aadharNumber,
+        phoneNumber,
       ]
+    );
+
+    const newId = result.insertId;
+    const certificateNumber = newId + 1200;
+
+    // Update certificate_number
+    await db.execute(
+      "UPDATE certificates SET certificate_number = ? WHERE id = ?",
+      [certificateNumber, newId]
     );
 
     // Send back the newly inserted certificate's ID
     res.json({
       message: "Certificate saved successfully",
-      id: result.insertId,
+      id: newId,
+      certificateNumber,
     });
   } catch (err) {
     console.error("Insert error:", err);
@@ -240,6 +252,58 @@ app.get("/api/certificates/:id", verifyToken, async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
+
+//todo search certificate list
+app.get("/api/certificates", verifyToken, async (req, res) => {
+  try {
+    const [result] = await db.execute("SELECT * FROM certificates ORDER BY id DESC");
+    res.json(result);
+  } catch (err) {
+    console.error("Fetch all error:", err);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+
+// todo edit certificate
+app.put("/api/certificates/:id", verifyToken, cert_upload.single("photo"), async (req, res) => {
+  const { id } = req.params;
+  const {
+    name,
+    fatherName,
+    course,
+    duration,
+    issueDate,
+    certificateType,
+    grade,
+    certificateNumber,
+  } = req.body;
+
+  const photoPath = req.file ? "/uploads/cert_photos/" + req.file.filename : null;
+
+  try {
+    let query = `UPDATE certificates SET 
+      name = ?, father_name = ?, course = ?, duration = ?, issue_date = ?, type = ?, grade = ?, certificate_number = ?`;
+
+    const params = [name, fatherName, course, duration, issueDate, certificateType, grade, certificateNumber];
+
+    if (photoPath) {
+      query += `, photo = ?`;
+      params.push(photoPath);
+    }
+
+    query += ` WHERE id = ?`;
+    params.push(id);
+
+    await db.execute(query, params);
+
+    res.json({ message: "Certificate updated successfully" });
+  } catch (err) {
+    console.error("Update error:", err);
+    res.status(500).json({ message: "Database update failed" });
+  }
+});
+
 
 // Route using token
 app.get("/api/admin/data", verifyToken, (req, res) => {

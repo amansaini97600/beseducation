@@ -18,6 +18,8 @@ export default function CertificateForm() {
         grade: "",
         issueDate: new Date().toISOString().split("T")[0],
         certificateType: "Diploma",
+        aadharNumber: "",
+        phoneNumber: "",
     });
 
     const handleChange = (e) => {
@@ -53,7 +55,6 @@ export default function CertificateForm() {
             alert("Failed to generate certificate");
         }
     };
-
 
     return (
         <div className="flex">
@@ -131,6 +132,26 @@ export default function CertificateForm() {
                             onChange={handleChange}
                             className="w-full border p-2 rounded"
                             required
+                        />
+
+                        <input 
+                            type="text" 
+                            name="phone" 
+                            value={formData.phoneNumber}
+                            onChange={handleChange} 
+                            placeholder="Phone Number" 
+                            className="w-full p-2 border rounded" 
+                            required 
+                        />
+
+                        <input 
+                            type="text" 
+                            name="aadhar" 
+                            value={formData.aadharNumber} 
+                            onChange={handleChange} 
+                            placeholder="Aadhar Number" 
+                            className="w-full p-2 border rounded" 
+                            required 
                         />
 
                         <input
