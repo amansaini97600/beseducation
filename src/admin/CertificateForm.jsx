@@ -79,7 +79,7 @@ export default function CertificateForm() {
                             type="text"
                             name="name"
                             placeholder="Student Name"
-                            value={formData.name}
+                            value={formData.name.toUpperCase()}
                             onChange={handleChange}
                             className="w-full border p-2 rounded"
                             required
@@ -89,41 +89,62 @@ export default function CertificateForm() {
                             type="text"
                             name="fatherName"
                             placeholder="Father's Name"
-                            value={formData.fatherName}
+                            value={formData.fatherName.toUpperCase()}
                             onChange={handleChange}
                             className="w-full border p-2 rounded"
                             required
+                            
                         />
 
                         <input
                             type="text"
                             name="course"
                             placeholder="Course Name"
-                            value={formData.course}
+                            value={formData.course.toUpperCase()}
                             onChange={handleChange}
                             className="w-full border p-2 rounded"
+                            list="course"
                             required
                         />
+                        <datalist id="course">
+                            <option value="ADCA" />
+                            <option value="DCA" />
+                            <option value="ACC" />
+                            <option value="TALLY PRIME WITH GST" />
+                            <option value="TALLY PRIME" />
+                            <option value="C PROGRAMMING LANGUAGE" />
+                            <option value="C++ PROGRAMMING LANGUAGE" />
+                            <option value="PYTHON PROGRAMMING LANGUAGE" />
+                            <option value="JAVA PROGRAMMING LANGUAGE" />
+                            <option value="JAVASCRIPT PROGRAMMING LANGUAGE" />
+                            <option value="HTML LANGUAGE" />
+                            <option value="CSS LANGUAGE" />
+                            <option value="FULL STACK DEVELOPER" />
+                        </datalist>
 
-                        <input
-                            type="text"
+                        <select
                             name="duration"
-                            placeholder="Duration (e.g. 6 Months)"
-                            value={formData.duration}
+                            value={formData.duration.toUpperCase()}
                             onChange={handleChange}
                             className="w-full border p-2 rounded"
                             required
-                        />
+                        >
+                            <option value="SIX MONTH">Six Months</option>
+                            <option value="THREE MONTH">Three Month</option>
+                        </select>
 
-                        <input
-                            type="text"
+                        <select
                             name="grade"
-                            placeholder="Grade"
                             value={formData.grade}
                             onChange={handleChange}
                             className="w-full border p-2 rounded"
                             required
-                        />
+                        >
+                            <option value="S">S</option>
+                            <option value="A+">A+</option>
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                        </select>
 
                         <input
                             type="date"
@@ -134,24 +155,24 @@ export default function CertificateForm() {
                             required
                         />
 
-                        <input 
-                            type="text" 
-                            name="phone" 
+                        <input
+                            type="text"
+                            name="phoneNumber"
                             value={formData.phoneNumber}
-                            onChange={handleChange} 
-                            placeholder="Phone Number" 
-                            className="w-full p-2 border rounded" 
-                            required 
+                            onChange={handleChange}
+                            placeholder="Phone Number"
+                            className="w-full p-2 border rounded"
+                            required
                         />
 
-                        <input 
-                            type="text" 
-                            name="aadhar" 
-                            value={formData.aadharNumber} 
-                            onChange={handleChange} 
-                            placeholder="Aadhar Number" 
-                            className="w-full p-2 border rounded" 
-                            required 
+                        <input
+                            type="text"
+                            name="aadharNumber"
+                            value={formData.aadharNumber}
+                            onChange={handleChange}
+                            placeholder="Aadhar Number"
+                            className="w-full p-2 border rounded"
+                            required
                         />
 
                         <input
@@ -159,6 +180,7 @@ export default function CertificateForm() {
                             accept="image/*"
                             onChange={(e) => setPhoto(e.target.files[0])}
                             className="w-full border p-2 rounded"
+                            required
                         />
 
 

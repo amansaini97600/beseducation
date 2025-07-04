@@ -54,13 +54,13 @@ export default function CertificatePage() {
         box-sizing: border-box;
           padding: 20px;
       ">
-        <div style="position: absolute; top: 333px; left: 510px; font-size: 22px; font-weight: bold; font-family: 'Arial Narrow Bold'">${data.name}</div>
+        <div style="position: absolute; top: 333px; left: 510px; font-size: 22px; font-weight: bold; font-family: 'Arial Narrow Bold'">${data.name.toUpperCase()}</div>
 
-        <div style="position: absolute; top: 369px; right: 675px; font-size: 22px; font-weight: bold;">${data.father_name}</div>
+        <div style="position: absolute; top: 369px; right: 675px; font-size: 22px; font-weight: bold;">${data.father_name.toUpperCase()}</div>
 
-        <div style="position: absolute; bottom: 303px; left: 300px; font-size: 22px; font-weight: bold;">${data.course}</div>
+        <div style="position: absolute; bottom: 303px; left: 300px; font-size: 22px; font-weight: bold;">${data.course.toUpperCase()}</div>
 
-        <div style="position: absolute; bottom: 303px; right: 190px; font-size: 22px; font-weight: bold;">${data.duration}</div>
+        <div style="position: absolute; bottom: 303px; right: 190px; font-size: 22px; font-weight: bold;">${data.duration.toUpperCase()}</div>
 
         <div style="position: absolute; bottom: 266px; left: 540px; font-size: 22px; font-weight: bold";>\"${data.grade}\"</div>
 
@@ -148,10 +148,10 @@ export default function CertificatePage() {
                 Print Certificate
               </button>
             </div>
-            <div style={{ position: "absolute", top: "257px", left: "400px", fontSize: "16px", fontWeight: "bold" }}>{data.name}</div>
-            <div style={{ position: "absolute", top: "285px", left: "230px", fontSize: "16px", fontWeight: "bold" }}>{data.father_name}</div>
-            <div style={{ position: "absolute", top: "341px", left: "233px", fontSize: "16px", fontWeight: "bold" }}>{data.course}</div>
-            <div style={{ position: "absolute", top: "341px", right: "165px", fontSize: "16px", fontWeight: "bold" }}>{data.duration}</div>
+            <div style={{ position: "absolute", top: "257px", left: "400px", fontSize: "16px", fontWeight: "bold" }}>{data.name.toUpperCase()}</div>
+            <div style={{ position: "absolute", top: "285px", left: "230px", fontSize: "16px", fontWeight: "bold" }}>{data.father_name.toUpperCase()}</div>
+            <div style={{ position: "absolute", top: "341px", left: "233px", fontSize: "16px", fontWeight: "bold" }}>{data.course.toUpperCase()}</div>
+            <div style={{ position: "absolute", top: "341px", right: "165px", fontSize: "16px", fontWeight: "bold" }}>{data.duration.toUpperCase()}</div>
             <div style={{ position: "absolute", bottom: "206px", left: "435px", fontSize: "16px", fontWeight: "bold" }}>"{data.grade}"</div>
             <div style={{ position: "absolute", bottom: "179px", left: "300px", fontSize: "16px", fontWeight: "bold" }}>{data.certificate_number}MBD/11907</div>
             <div style={{ position: "absolute", bottom: "179px", right: "95px", fontSize: "16px", fontWeight: "bold" }}>{new Date(data.issue_date).toLocaleDateString("en-GB")}</div>

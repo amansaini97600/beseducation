@@ -13,6 +13,7 @@ import CertificateForm from "./admin/CertificateForm";
 import CertificatePage from "./admin/CertificatePage";
 import CertificateList from "./admin/CertificateList";
 import EditCertificate from "./admin/EditCertificate";
+import DiplomaForm from "./admin/DiplomaForm";
 
 function App() {
   return (
@@ -54,24 +55,24 @@ function App() {
             />
 
             <Route
-  path="/admin/generate-certificate"
-  element={
-    <ProtectedRoute>
-      <CertificateForm />
-    </ProtectedRoute>
-  }
-/>
+              path="/admin/generate-certificate"
+              element={
+                <ProtectedRoute>
+                  <CertificateForm />
+                </ProtectedRoute>
+              }
+            />
 
-<Route
-  path="/admin/certificate/:id"
-  element={
-    <ProtectedRoute>
-      <CertificatePage />
-    </ProtectedRoute>
-  }
-/>
+            <Route
+              path="/admin/certificate/:id"
+              element={
+                <ProtectedRoute>
+                  <CertificatePage />
+                </ProtectedRoute>
+              }
+            />
 
-            
+
             <Route
               path="/admin/certificates"
               element={
@@ -89,7 +90,16 @@ function App() {
                 </ProtectedRoute>
               }
             />
-            
+
+            <Route
+              path="/admin/generate-diploma"
+              element={
+                <ProtectedRoute>
+                  <DiplomaForm />
+                </ProtectedRoute>
+              }
+            />
+
           </Routes>
         </div>
         <Footer />

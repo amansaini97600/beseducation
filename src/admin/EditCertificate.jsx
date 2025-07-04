@@ -16,7 +16,9 @@ export default function EditCertificate() {
     grade: "",
     issueDate: "",
     certificateType: "",
-    certificateNumber: ""
+    certificateNumber: "",
+    phoneNumber: "",
+    aadharNumber: ""
   });
 
   useEffect(() => {
@@ -37,6 +39,8 @@ export default function EditCertificate() {
           issueDate: data.issue_date.split("T")[0],
           certificateType: data.type,
           certificateNumber: data.certificate_number,
+          phoneNumber: data.phone,
+          aadharNumber: data.aadhar,
         });
       } catch (err) {
         console.error("Failed to fetch certificate:", err);
@@ -110,32 +114,69 @@ export default function EditCertificate() {
               className="w-full border p-2 rounded"
               required
             />
+            <datalist id="course">
+              <option value="ADCA" />
+              <option value="DCA" />
+              <option value="ACC" />
+              <option value="TALLY PRIME WITH GST" />
+              <option value="TALLY PRIME" />
+              <option value="C PROGRAMMING LANGUAGE" />
+              <option value="C++ PROGRAMMING LANGUAGE" />
+              <option value="PYTHON PROGRAMMING LANGUAGE" />
+              <option value="JAVA PROGRAMMING LANGUAGE" />
+              <option value="JAVASCRIPT PROGRAMMING LANGUAGE" />
+              <option value="HTML LANGUAGE" />
+              <option value="CSS LANGUAGE" />
+              <option value="FULL STACK DEVELOPER" />
+            </datalist>
 
-            <input
-              type="text"
+            <select
               name="duration"
-              placeholder="Duration (e.g. 6 Months)"
-              value={formData.duration}
+              value={formData.duration.toUpperCase()}
               onChange={handleChange}
               className="w-full border p-2 rounded"
-              required
-            />
+            >
+              <option value="SIX MONTH">Six Months</option>
+              <option value="THREE MONTH">Three Month</option>
+            </select>
 
-            <input
-              type="text"
+            <select
               name="grade"
-              placeholder="Grade"
               value={formData.grade}
               onChange={handleChange}
               className="w-full border p-2 rounded"
-              required
-            />
+            >
+              <option value="S">S</option>
+              <option value="A+">A+</option>
+              <option value="A">A</option>
+              <option value="B">B</option>
+            </select>
 
             <input
               type="date"
               name="issueDate"
               value={formData.issueDate}
               onChange={handleChange}
+              className="w-full border p-2 rounded"
+              required
+            />
+
+            <input
+              type="text"
+              name="aadharNumber"
+              value={formData.aadharNumber}
+              onChange={handleChange}
+              placeholder="Aadhar Number"
+              className="w-full border p-2 rounded"
+              required
+            />
+
+            <input
+              type="text"
+              name="phoneNumber"
+              value={formData.phoneNumber}
+              onChange={handleChange}
+              placeholder="Phone Number"
               className="w-full border p-2 rounded"
               required
             />

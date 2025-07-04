@@ -277,15 +277,17 @@ app.put("/api/certificates/:id", verifyToken, cert_upload.single("photo"), async
     certificateType,
     grade,
     certificateNumber,
+    phoneNumber,
+    aadharNumber,
   } = req.body;
 
   const photoPath = req.file ? "/uploads/cert_photos/" + req.file.filename : null;
 
   try {
     let query = `UPDATE certificates SET 
-      name = ?, father_name = ?, course = ?, duration = ?, issue_date = ?, type = ?, grade = ?, certificate_number = ?`;
+      name = ?, father_name = ?, course = ?, duration = ?, issue_date = ?, type = ?, grade = ?, certificate_number = ?, phone = ?, aadhar = ?`;
 
-    const params = [name, fatherName, course, duration, issueDate, certificateType, grade, certificateNumber];
+    const params = [name, fatherName, course, duration, issueDate, certificateType, grade, certificateNumber, phoneNumber, aadharNumber];
 
     if (photoPath) {
       query += `, photo = ?`;
@@ -309,3 +311,110 @@ app.put("/api/certificates/:id", verifyToken, cert_upload.single("photo"), async
 app.get("/api/admin/data", verifyToken, (req, res) => {
   res.json({ message: "Secure data" });
 });
+
+// todo Diploma add
+// 📁 server.cjs or your main backend file
+
+// const express = require("express");
+// const multer = require("multer");
+// const path = require("path");
+// const db = require("./db.cjs");
+// const app = express();
+
+app.use(express.json());
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
+// 🔧 Multer setup for photo upload
+const diploma_storage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, "uploads/diploma_photos"),
+  filename: (req, file, cb) => cb(null, Date.now() + "-" + file.originalname),
+});
+
+const diploma_upload = multer({ storage: diploma_storage });
+
+// 📌 Utility functions
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function generateGrade(percentage) {
+  if (percentage >= 90) return "A";
+  if (percentage >= 80) return "B";
+  if (percentage >= 70) return "C";
+  return "D";
+}
+
+// 📥 POST /api/diplomas
+app.post("/api/diplomas", diploma_upload.single("photo"), async (req, res) => {
+  const {
+    name,
+    fatherName,
+    course,
+    compilationDate,
+    generationDate
+  } = req.body;
+
+  const subjects = ["A.C.C.", "D.C.A.", "D.T.P.", "TALLY 9.0", "TALLY 9.4"];
+
+  const marks = [];
+  let total = 0;
+  subjects.forEach((subject) => {
+    const t1 = getRandomInt(90, 98);
+    const p1 = getRandomInt(40, 48);
+    const t2 = getRandomInt(90, 98);
+    const p2 = getRandomInt(40, 48);
+
+    total += t1 + p1 + t2 + p2;
+
+    marks.push({ term: "I", subject, theory: t1, practical: p1 });
+    marks.push({ term: "II", subject, theory: t2, practical: p2 });
+  });
+
+  const percentage = parseFloat((total / 1500 * 100).toFixed(2));
+  const grade = generateGrade(percentage);
+
+  const photoPath = req.file ? "/uploads/diploma_photos/" + req.file.filename : null;
+
+  try {
+    const [diplomaResult] = await db.execute(
+      `INSERT INTO diplomas (name, father_name, course, institute, photo, compilation_date, generation_date, total_marks, percentage, grade)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [
+        name,
+        fatherName,
+        course,
+        "CEC COMPUTER INSTITUTE, DHAMPUR",
+        photoPath,
+        compilationDate,
+        generationDate,
+        total,
+        percentage,
+        grade,
+        // null // placeholder for certificate_number
+      ]
+    );
+
+    const diplomaId = diplomaResult.insertId;
+    const certificateNumber = 1200 + diplomaId;
+
+    await db.execute(
+      `UPDATE diplomas SET certificate_number = ? WHERE id = ?`,
+      [certificateNumber, diplomaId]
+    );
+
+    for (const m of marks) {
+      await db.execute(
+        `INSERT INTO diploma_marks (diploma_id, term, subject, theory, practical) VALUES (?, ?, ?, ?, ?)`,
+        [diplomaId, m.term, m.subject, m.theory, m.practical]
+      );
+    }
+
+    res.json({ message: "Diploma created", id: diplomaId });
+  } catch (err) {
+    console.error("Insert error:", err);
+    res.status(500).json({ message: "Failed to insert diploma" });
+  }
+});
+
+// Export or listen here if not already handled
+module.exports = app;

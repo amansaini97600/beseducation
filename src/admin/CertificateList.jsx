@@ -8,6 +8,13 @@ import { saveAs } from "file-saver";
 
 
 export default function CertificateList() {
+    const capitalizeEachWord = (text) =>
+        text
+            .toLowerCase()
+            .split(" ")
+            .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(" ");
+
     const [certificates, setCertificates] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
 
@@ -99,6 +106,7 @@ export default function CertificateList() {
                             <tr className="bg-gray-200">
                                 <th className="border px-2 py-1">ID</th>
                                 <th className="border px-2 py-1">Name</th>
+                                <th className="border px-2 py-1">Father Name</th>
                                 <th className="border px-2 py-1">Phone</th>
                                 <th className="border px-2 py-1">Aadhar</th>
                                 <th className="border px-2 py-1">Course</th>
@@ -111,10 +119,11 @@ export default function CertificateList() {
                             {currentCertificates.map((cert) => (
                                 <tr key={cert.id}>
                                     <td className="border px-2 py-1">{cert.id}</td>
-                                    <td className="border px-2 py-1">{cert.name}</td>
+                                    <td className="border px-2 py-1">{capitalizeEachWord(cert.name)}</td>
+                                    <td className="border px-2 py-1">{capitalizeEachWord(cert.father_name)}</td>
                                     <td className="border px-2 py-1">{cert.phone}</td>
                                     <td className="border px-2 py-1">{cert.aadhar}</td>
-                                    <td className="border px-2 py-1">{cert.course}</td>
+                                    <td className="border px-2 py-1">{capitalizeEachWord(cert.course)}</td>
                                     <td className="border px-2 py-1">{cert.certificate_number}</td>
                                     <td className="border px-2 py-1">
                                         {new Date(cert.issue_date).toLocaleDateString("en-GB")}
@@ -159,8 +168,8 @@ export default function CertificateList() {
                                 key={index}
                                 onClick={() => setCurrentPage(index + 1)}
                                 className={`px-3 py-1 rounded ${currentPage === index + 1
-                                        ? "bg-blue-600 text-white"
-                                        : "bg-gray-200 hover:bg-gray-300"
+                                    ? "bg-blue-600 text-white"
+                                    : "bg-gray-200 hover:bg-gray-300"
                                     }`}
                             >
                                 {index + 1}
