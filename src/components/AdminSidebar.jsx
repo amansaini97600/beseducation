@@ -17,11 +17,16 @@ export default function AdminSidebar() {
                 <Link to="/admin/add-student" className="block hover:bg-blue-700 p-2 rounded">
                     Add Student
                 </Link>
+
                 <Link to="/admin/generate-certificate" className="block hover:bg-blue-700 p-2 rounded">
                     Generate Certificate
                 </Link>
 
                 <Link to="/admin/certificates" className="block hover:bg-blue-700 p-2 rounded">All Certificates</Link>
+
+                <Link to="/admin/upload-notes" className="block hover:bg-blue-700 p-2 rounded">Add Notes</Link>
+
+                <Link to="/admin/notes" className="block hover:bg-blue-700 p-2 rounded">All Notes</Link>
 
 
                 <button

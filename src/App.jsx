@@ -1,7 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
-import About from "./pages/About";
-import Courses from "./pages/Courses";
+import About from "./pages/AboutSection";
+import Courses from "./pages/CoursesSection";
+import ContactSection from "./pages/ContactSection";
 import AdminLogin from "./pages/AdminLogin";
 import Dashboard from "./admin/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -14,6 +15,9 @@ import CertificatePage from "./admin/CertificatePage";
 import CertificateList from "./admin/CertificateList";
 import EditCertificate from "./admin/EditCertificate";
 import DiplomaForm from "./admin/DiplomaForm";
+import NotesUpload from "./admin/NotesUpload";
+import NotesList from "./admin/NotesList";
+import StudentNotes from "./pages/StudentNotes";
 
 function App() {
   return (
@@ -23,10 +27,11 @@ function App() {
         <div className="flex-grow">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/courses" element={<Courses />} />
+            <Route path="/aboutSection" element={<About />} />
+            <Route path="/coursesSection" element={<Courses />} />
+            <Route path="/contactSection" element={<ContactSection />} />
             <Route path="/admin-login" element={<AdminLogin />} />
-
+            <Route path="/notes" element={<StudentNotes />} />
             <Route
               path="/admin/add-student"
               element={
@@ -96,6 +101,24 @@ function App() {
               element={
                 <ProtectedRoute>
                   <DiplomaForm />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/admin/upload-notes"
+              element={
+                <ProtectedRoute>
+                  <NotesUpload />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/admin/notes"
+              element={
+                <ProtectedRoute>
+                  <NotesList />
                 </ProtectedRoute>
               }
             />
