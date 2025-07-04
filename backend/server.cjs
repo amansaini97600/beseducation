@@ -307,19 +307,8 @@ app.put("/api/certificates/:id", verifyToken, cert_upload.single("photo"), async
 });
 
 
-// Route using token
-app.get("/api/admin/data", verifyToken, (req, res) => {
-  res.json({ message: "Secure data" });
-});
-
 // todo Diploma add
 // 📁 server.cjs or your main backend file
-
-// const express = require("express");
-// const multer = require("multer");
-// const path = require("path");
-// const db = require("./db.cjs");
-// const app = express();
 
 app.use(express.json());
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
@@ -350,8 +339,9 @@ app.post("/api/diplomas", diploma_upload.single("photo"), async (req, res) => {
     name,
     fatherName,
     course,
-    compilationDate,
-    generationDate
+    institute,
+    dateOfCompilation,
+    dateOfGeneration
   } = req.body;
 
   const subjects = ["A.C.C.", "D.C.A.", "D.T.P.", "TALLY 9.0", "TALLY 9.4"];
@@ -377,20 +367,20 @@ app.post("/api/diplomas", diploma_upload.single("photo"), async (req, res) => {
 
   try {
     const [diplomaResult] = await db.execute(
-      `INSERT INTO diplomas (name, father_name, course, institute, photo, compilation_date, generation_date, total_marks, percentage, grade)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      `INSERT INTO diplomas (name, father_name, course, institute, photo, compilation_date, generation_date, total, percentage, grade, certificate_number)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         name,
         fatherName,
         course,
-        "CEC COMPUTER INSTITUTE, DHAMPUR",
+        institute,
         photoPath,
-        compilationDate,
-        generationDate,
+        dateOfCompilation,
+        dateOfGeneration,
         total,
         percentage,
         grade,
-        // null // placeholder for certificate_number
+        null // placeholder for certificate_number
       ]
     );
 
@@ -418,3 +408,98 @@ app.post("/api/diplomas", diploma_upload.single("photo"), async (req, res) => {
 
 // Export or listen here if not already handled
 module.exports = app;
+
+// todo get diploma data
+app.get("/api/diplomas/:id", verifyToken, async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const [result] = await db.execute("SELECT * FROM diplomas WHERE id = ?", [id]);
+
+    if (result.length === 0) {
+      return res.status(404).json({ message: "Diploma not found" });
+    }
+
+    res.json(result[0]);
+  } catch (err) {
+    console.error("Error fetching diploma:", err);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+app.get("/api/diplomas/:id/marks", verifyToken, async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const [rows] = await db.execute("SELECT * FROM diploma_marks WHERE diploma_id = ?", [id]);
+
+    if (rows.length === 0) {
+      return res.status(404).json({ message: "No marks found" });
+    }
+
+    res.json(rows);
+  } catch (err) {
+    console.error("Error fetching diploma marks:", err);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+
+//todo diploma list
+app.get("/api/diplomas", verifyToken, async (req, res) => {
+  try {
+    const [rows] = await db.execute("SELECT * FROM diplomas ORDER BY id DESC");
+    res.json(rows);
+  } catch (err) {
+    console.error("Diploma fetch error:", err);
+    res.status(500).json({ message: "Failed to fetch diplomas" });
+  }
+});
+
+// todo edit diploma 
+app.put("/api/diplomas/:id", verifyToken, async (req, res) => {
+  const { id } = req.params;
+  const {
+    name,
+    father_name,
+    course,
+    duration,
+    phone,
+    aadhar,
+    issue_date,
+    certificate_number
+  } = req.body;
+
+  try {
+    const [result] = await db.execute(
+      `UPDATE diplomas 
+       SET name = ?, father_name = ?, course = ?, duration = ?, 
+           phone = ?, aadhar = ?, issue_date = ?, certificate_number = ? 
+       WHERE id = ?`,
+      [
+        name,
+        father_name,
+        course,
+        duration,
+        phone,
+        aadhar,
+        issue_date,
+        certificate_number,
+        id,
+      ]
+    );
+
+    res.json({ message: "Diploma updated successfully" });
+  } catch (err) {
+    console.error("Error updating diploma:", err);
+    res.status(500).json({ message: "Failed to update diploma" });
+  }
+});
+
+
+
+
+// Route using token
+app.get("/api/admin/data", verifyToken, (req, res) => {
+  res.json({ message: "Secure data" });
+});

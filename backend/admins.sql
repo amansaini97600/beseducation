@@ -56,17 +56,20 @@ ADD COLUMN completion_date DATE;
 --todo diploma 
 CREATE TABLE diplomas (
   id INT PRIMARY KEY AUTO_INCREMENT,
-  name VARCHAR(100),
-  father_name VARCHAR(100),
-  course VARCHAR(100),
+  name VARCHAR(255),
+  father_name VARCHAR(255),
+  course VARCHAR(255),
   institute VARCHAR(255),
   photo VARCHAR(255),
-  total_marks INT,
-  percentage FLOAT,
-  grade VARCHAR(2),
   compilation_date DATE,
-  generation_date DATE
+  generation_date DATE,
+  total INT,
+  percentage FLOAT,
+  grade VARCHAR(10),
+  certificate_number VARCHAR(50),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
 
 CREATE TABLE diploma_marks (
   id INT PRIMARY KEY AUTO_INCREMENT,
@@ -75,8 +78,8 @@ CREATE TABLE diploma_marks (
   subject VARCHAR(100),
   theory INT,
   practical INT,
-  grade VARCHAR(2),
-  FOREIGN KEY (diploma_id) REFERENCES diplomas(id)
+  FOREIGN KEY (diploma_id) REFERENCES diplomas(id) ON DELETE CASCADE
 );
+
 
 
