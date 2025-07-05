@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import excelImg from "../assets/images/excel.webp";
+import excelImg from "../assets/images/excel.jpeg";
 import pthonImg from "../assets/images/python.webp";
 import htmlImg from "../assets/images/html.webp";
 import javaImg from "../assets/images/java.webp";
