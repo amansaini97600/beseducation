@@ -5,6 +5,11 @@ import cppLanguage from "../assets/images/cpp.webp";
 import tally from "../assets/images/tally.png";
 import ccc from "../assets/images/ccc.png";
 import java from "../assets/images/java.webp";
+import js from "../assets/images/js.webp";
+import excel from "../assets/images/excel.webp";
+import html from "../assets/images/html.webp";
+import msWordImg from "../assets/images/msWord.jpg";
+import powerP from "../assets/images/powerP.png";
 
 import React from "react";
 
@@ -14,32 +19,32 @@ export default function Courses() {
     {
       title: "MS Excel",
       description: "Learn spreadsheet skills for accounting, data entry, and automation using formulas and charts.",
-      icon: "/images/excel.png",
+      icon: excel,
     },
     {
       title: "Tally Prime",
       description: "Master accounting basics, GST, and business reports using Tally software.",
-      icon: "/images/tally.png",
+      icon: tally,
     },
     {
       title: "MS Word",
       description: "Create professional documents, letters, resumes, and formatted reports.",
-      icon: "/images/word.png",
+      icon: msWordImg,
     },
     {
       title: "HTML & CSS",
       description: "Start your web development journey with the fundamentals of HTML & CSS.",
-      icon: "/images/html.png",
+      icon: html,
     },
     {
       title: "PowerPoint",
       description: "Build attractive presentations with animations and smart design tools.",
-      icon: "/images/ppt.png",
+      icon: powerP,
     },
     {
       title: "JavaScript (Basic)",
       description: "Understand the logic behind web interactivity and simple browser scripting.",
-      icon: "/images/js.png",
+      icon: js,
     },
   ];
 
