@@ -496,6 +496,86 @@ app.put("/api/diplomas/:id", verifyToken, async (req, res) => {
   }
 });
 
+// todo upload notes
+
+// Serve uploaded files statically
+app.use("/uploads/notes", express.static("uploads/notes"));
+
+// Multer storage config
+const notes_storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "uploads/notes");
+  },
+  filename: function (req, file, cb) {
+    const uniqueName = Date.now() + "-" + file.originalname;
+    cb(null, uniqueName);
+  }
+});
+
+const notes_upload = multer({ storage: notes_storage }); // ✅ Fixed here
+
+// Route: Upload Notes
+app.post("/api/notes", notes_upload.single("file"), async (req, res) => {
+  const { title, subject } = req.body;
+  const file = req.file;
+
+  // console.log("title:", title);
+  // console.log("subject:", subject);
+  // console.log("file:", file); // ✅ Now this will NOT be undefined
+
+  if (!file || !title || !subject) {
+    return res.status(400).json({ error: "Missing title, subject, or file" });
+  }
+
+  try {
+    const sql = "INSERT INTO notes (title, subject, filename) VALUES (?, ?, ?)";
+    await db.execute(sql, [title, subject, file.filename]);
+    res.status(201).json({ message: "Note uploaded successfully" });
+  } catch (err) {
+    console.error("Database error:", err);
+    res.status(500).json({ error: "Database error" });
+  }
+});
+
+// todo notes list
+
+app.get("/api/notes", async (req, res) => {
+  try {
+    const [rows] = await db.execute("SELECT * FROM notes ORDER BY uploaded_at DESC");
+    res.json(rows);
+  } catch (err) {
+    console.error("Fetch error:", err);
+    res.status(500).json({ error: "Failed to fetch notes" });
+  }
+});
+
+//todo delete notes
+app.delete("/api/notes/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    await db.execute("DELETE FROM notes WHERE id = ?", [id]);
+    res.json({ message: "Note deleted successfully" });
+  } catch (err) {
+    console.error("Delete error:", err);
+    res.status(500).json({ error: "Delete failed" });
+  }
+});
+
+// todo Download notes 
+const fs = require("fs");
+
+app.get("/api/notes/download/:filename", (req, res) => {
+  const { filename } = req.params;
+  const filePath = path.join(__dirname, "uploads/notes", filename);
+
+  // check if file exists
+  if (fs.existsSync(filePath)) {
+    res.download(filePath); // 🔥 This forces download
+  } else {
+    res.status(404).json({ error: "File not found" });
+  }
+});
+
 // Route using token
 app.get("/api/admin/data", verifyToken, (req, res) => {
   res.json({ message: "Secure data" });

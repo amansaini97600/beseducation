@@ -25,10 +25,10 @@ export default function AdminSidebar() {
                 <Link to="/admin/certificates" className="block hover:bg-blue-700 p-2 rounded">All Certificates</Link>
 
                 <Link to="/admin/generate-diploma" className="block hover:bg-blue-700 p-2 rounded">
-                    Generate Diloma
+                    Generate Diploma
                 </Link>
 
-                <Link to="/admin/diploma" className="block hover:bg-blue-700 p-2 rounded">All Dilopas</Link>
+                <Link to="/admin/diploma" className="block hover:bg-blue-700 p-2 rounded">All Diplomas</Link>
 
                 <Link to="/admin/upload-notes" className="block hover:bg-blue-700 p-2 rounded">Add Notes</Link>
 

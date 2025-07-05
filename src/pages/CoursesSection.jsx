@@ -1,10 +1,10 @@
-import pythonImg from "../assets/images/python.jpg";
-import computerCourse from "../assets/images/computerCourse.jpg";
-import cLanguage from "../assets/images/cLanguage.jpg";
+import pythonImg from "../assets/images/python.webp";
+// import computerCourse from "../assets/images/computerCourse.jpg";
+import cLanguage from "../assets/images/c.webp";
 import cppLanguage from "../assets/images/cpp.webp";
 import tally from "../assets/images/tally.png";
 import ccc from "../assets/images/ccc.png";
-import java from "../assets/images/java.jpg";
+import java from "../assets/images/java.webp";
 
 import React from "react";
 

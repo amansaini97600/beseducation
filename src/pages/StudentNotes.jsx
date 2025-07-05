@@ -1,13 +1,21 @@
 import React, { useEffect, useState } from "react";
 
+import excelImg from "../assets/images/excel.webp";
+import pthonImg from "../assets/images/python.webp";
+import htmlImg from "../assets/images/html.webp";
+import javaImg from "../assets/images/java.webp";
+import cppImg from "../assets/images/cpp.webp";
+import phpImg from "../assets/images/php.webp";
+import tallyImg from "../assets/images/tally.png";
+
 const subjectImages = {
-    Excel: "/images/excel.png",
-    "MS Word": "/images/word.png",
-    Tally: "/images/tally.png",
-    PowerPoint: "/images/ppt.png",
-    HTML: "/images/html.png",
-    CSS: "/images/css.png",
-    JavaScript: "/images/js.png",
+    Excel: excelImg,
+    // "MS Word": msWordImg,
+    Tally: tallyImg,
+    // PowerPoint: powerPointImg,
+    HTML: htmlImg,
+    // CSS: cssImg,
+    // JavaScript: javaScriptImg,
     Default: "/images/note.png",
 };
 
