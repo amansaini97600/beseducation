@@ -18,6 +18,9 @@ import DiplomaForm from "./admin/DiplomaForm";
 import NotesUpload from "./admin/NotesUpload";
 import NotesList from "./admin/NotesList";
 import StudentNotes from "./pages/StudentNotes";
+import DiplomaPage from "./admin/DiplomaPage";
+import DiplomaList from "./admin/DiplomaList";
+import EditDiploma from "./admin/EditDiploma";
 
 function App() {
   return (
@@ -113,12 +116,39 @@ function App() {
                 </ProtectedRoute>
               }
             />
+            
+            <Route
+              path="/admin/diploma/:id"
+              element={
+                <ProtectedRoute>
+                  <DiplomaPage />
+                </ProtectedRoute>
+              }
+            />
 
             <Route
               path="/admin/notes"
               element={
                 <ProtectedRoute>
                   <NotesList />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/admin/diploma"
+              element={
+                <ProtectedRoute>
+                  <DiplomaList />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/admin/edit-diploma/:id"
+              element={
+                <ProtectedRoute>
+                  <EditDiploma />
                 </ProtectedRoute>
               }
             />

@@ -8,7 +8,7 @@
   }
 
   @page {
-    size: A4 landscape;
+    size: A4 portrait;
     margin: 0;
   }
 
@@ -20,16 +20,15 @@
     visibility: visible;
   }
 
-  #print-area {
+  /* #print-area {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100vw;   /* instead of mm */
+    width: 100vw; 
     height: 100vh;
     background: white;
     overflow: hidden;
-    /* -webkit-print-color-adjust: exact; important for colors */
-  }
+  } */
 
   .no-print {
     display: none !important;
