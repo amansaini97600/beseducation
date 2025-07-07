@@ -29,8 +29,8 @@ export default function Footer() {
         {/* Contact & Social */}
         <div>
           <h3 className="text-xl font-semibold mb-3">Contact Info</h3>
-          <p className="text-sm text-gray-300">📍 Near City Library, Dhampur, UP</p>
-          <p className="text-sm text-gray-300">📞 +91 9876543210</p>
+          <p className="text-sm text-gray-300">📍 Near Punjab Bank, Dhampur, UP</p>
+          <p className="text-sm text-gray-300">📞 +91 7017006898, 9760076514</p>
           <p className="text-sm text-gray-300 mb-4">📧 cec.coaching@email.com</p>
 
           <div className="flex space-x-4 text-lg">

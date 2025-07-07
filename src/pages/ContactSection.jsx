@@ -12,10 +12,10 @@ const ContactSection = () => {
         <div className="flex flex-col md:flex-row gap-10 items-center">
           {/* Contact Info */}
           <div className="flex-1 space-y-4 text-lg text-gray-700">
-            <p><strong>📍 Address:</strong> Near City Library, Main Road, Dhampur, UP</p>
-            <p><strong>📞 Phone:</strong> +91 9876543210</p>
+            <p><strong>📍 Address:</strong> Near Punjab Bank Road Subhash Chouck, Dhampur, UP</p>
+            <p><strong>📞 Phone:</strong> +91 7017006898, 9760076514</p>
             <p><strong>📧 Email:</strong> cec.coaching@email.com</p>
-            <p><strong>⏰ Timings:</strong> 9:00 AM – 6:00 PM (Mon–Sat)</p>
+            <p><strong>⏰ Timings:</strong> 8:00 AM – 5:00 PM (Mon–Sat)</p>
           </div>
 
           {/* Google Map */}

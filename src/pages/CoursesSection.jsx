@@ -1,3 +1,4 @@
+import React from "react";
 import cIcon from "../assets/images/c.webp";
 import basicIcon from "../assets/images/basicComputer.jpeg";
 import cppIcon from "../assets/images/cpp.webp";
@@ -20,8 +21,6 @@ import oLevelIcon from "../assets/images/oLevel.jpeg";
 import pythonIcon from "../assets/images/python.webp";
 import webDesignIcon from "../assets/images/webD.jpeg";
 import softwareDevIcon from "../assets/images/software.jpeg";
-
-import React from "react";
 
 export default function Courses() {
 

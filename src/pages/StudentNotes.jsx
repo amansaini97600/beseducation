@@ -43,7 +43,7 @@ const StudentNotes = () => {
     });
 
     return (
-        <div className="max-w-6xl mx-auto p-4 mt-6 pt-30">
+        <div className="max-w-6xl mx-auto p-4 mt-6 mb-15 pt-30">
             <h2 className="text-3xl font-bold text-center mb-6 text-blue-600">
                 Coaching Notes
             </h2>

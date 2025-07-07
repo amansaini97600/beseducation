@@ -20,17 +20,16 @@
     visibility: visible;
   }
 
-  /* #print-area {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw; 
-    height: 100vh;
-    background: white;
-    overflow: hidden;
-  } */
-
   .no-print {
     display: none !important;
   }
+}
+
+/* Add to index.css or App.css */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
