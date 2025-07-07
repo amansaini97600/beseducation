@@ -2,6 +2,10 @@ import React, { useRef, useEffect } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import aman from "../assets/teacherImage/aman.jpg";
 import gulshan from "../assets/teacherImage/gulshan.jpg";
+import parul from "../assets/teacherImage/parul.jpg";
+import soni from "../assets/teacherImage/soni2.jpg";
+import menuma from "../assets/teacherImage/menuma.jpg";
+import chotu from "../assets/teacherImage/chotu.jpg";
 
 const facultyMembers = [
   {
@@ -12,7 +16,7 @@ const facultyMembers = [
   {
     name: "Parul Chauhan",
     role: "Software Expert",
-    image: "/images/faculty2.jpg",
+    image: parul,
   },
   {
     name: "Aman Saini",
@@ -22,12 +26,17 @@ const facultyMembers = [
   {
     name: "Soni Rani",
     role: "Computer Instructor",
-    image: "/images/faculty1.jpg",
+    image: soni,
   },
   {
-    name: "Chhotu Rajput",
+    name: "Ghanendra Rajput",
     role: "O'level Trainer",
-    image: "/images/faculty1.jpg",
+    image: chotu,
+  },
+  {
+    name: "Mehmoona Malik",
+    role: "Basic Computer Expert",
+    image: menuma,
   },
 ];
 
