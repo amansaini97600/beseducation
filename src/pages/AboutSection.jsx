@@ -7,7 +7,7 @@ export default function About() {
         <p className="text-gray-700 text-lg leading-relaxed mb-10">
           At <span className="font-semibold">CEC Computer Center</span>, we are committed to providing
           practical computer education to help students build real-world skills. Our mission is to empower youth with
-          essential computer knowledge and software training including <strong>MS Office, Excel, Tally, HTML, CSS, JavaScript</strong>, and more.
+          essential computer knowledge and software training including <strong>MS Office, Excel, Tally, HTML, CSS, JavaScript, Java, Python</strong>, and more.
         </p>
 
         <div className="grid md:grid-cols-2 gap-8 text-left">

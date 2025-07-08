@@ -68,7 +68,7 @@ export default function CertificateList() {
     });
 
     const [currentPage, setCurrentPage] = useState(1);
-    const certificatesPerPage = 10;
+    const certificatesPerPage = 20;
 
     const indexOfLastCert = currentPage * certificatesPerPage;
     const indexOfFirstCert = indexOfLastCert - certificatesPerPage;
@@ -81,7 +81,7 @@ export default function CertificateList() {
             <AdminSidebar />
             <div className="flex-1 bg-gray-100 min-h-screen">
                 <AdminHeader />
-                <div className="max-w-7xl mx-auto mt-10 p-6 bg-white rounded shadow">
+                <div className="max-w-7xl mx-auto p-6 bg-white rounded shadow">
                     <h2 className="text-2xl font-bold mb-4">All Certificates</h2>
 
                     <div className="flex justify-between mb-4">

@@ -108,11 +108,21 @@ const FacultySection = () => {
               key={i}
               className="min-w-[250px] inline-block bg-white p-6 rounded-xl shadow hover:shadow-lg transition text-center"
             >
-              <img
-                src={faculty.image}
-                alt={faculty.name}
-                className="w-24 h-24 rounded-full mx-auto mb-4 object-cover"
-              />
+              <div className="relative group">
+                <img
+                  src={faculty.image}
+                  alt={faculty.name}
+                  className="w-24 h-24 rounded-full mx-auto mb-4 object-cover pointer-events-none select-none"
+                  onContextMenu={(e) => e.preventDefault()}
+                  draggable="false"
+                />
+                <div
+                  className="absolute top-0 left-0 w-full h-full bg-transparent z-10"
+                  onContextMenu={(e) => e.preventDefault()}
+                  onDragStart={(e) => e.preventDefault()}
+                />
+              </div>
+
               <h3 className="text-lg font-semibold text-gray-800">{faculty.name}</h3>
               <p className="text-sm text-gray-600">{faculty.role}</p>
             </div>
