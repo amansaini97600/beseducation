@@ -1,4 +1,5 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 import Home from "./pages/Home";
 import About from "./pages/AboutSection";
 import Courses from "./pages/CoursesSection";
@@ -21,145 +22,52 @@ import StudentNotes from "./pages/StudentNotes";
 import DiplomaPage from "./admin/DiplomaPage";
 import DiplomaList from "./admin/DiplomaList";
 import EditDiploma from "./admin/EditDiploma";
+import StudentCertificateSearch from "./pages/StudentCertificateSearch";
+
+function AppContent() {
+  const location = useLocation();
+  const isAdminRoute = location.pathname.startsWith("/admin");
+  const isSearchPage = location.pathname === "/search-certificate";
+
+  return (
+    <div className="min-h-screen flex flex-col">
+      <Navbar />
+      <div className="flex-grow">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/aboutSection" element={<About />} />
+          <Route path="/coursesSection" element={<Courses />} />
+          <Route path="/contactSection" element={<ContactSection />} />
+          <Route path="/admin-login" element={<AdminLogin />} />
+          <Route path="/notes" element={<StudentNotes />} />
+          <Route path="/certificate/search" element={<StudentCertificateSearch />} />
+
+          <Route path="/admin" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+          <Route path="/admin/add-student" element={<ProtectedRoute><AdminAddStudent /></ProtectedRoute>} />
+          <Route path="/admin/students" element={<ProtectedRoute><StudentList /></ProtectedRoute>} />
+          <Route path="/admin/generate-certificate" element={<ProtectedRoute><CertificateForm /></ProtectedRoute>} />
+          <Route path="/admin/certificate/:id" element={<ProtectedRoute><CertificatePage /></ProtectedRoute>} />
+          <Route path="/admin/certificates" element={<ProtectedRoute><CertificateList /></ProtectedRoute>} />
+          <Route path="/admin/edit-certificate/:id" element={<ProtectedRoute><EditCertificate /></ProtectedRoute>} />
+          <Route path="/admin/generate-diploma" element={<ProtectedRoute><DiplomaForm /></ProtectedRoute>} />
+          <Route path="/admin/diploma/:id" element={<ProtectedRoute><DiplomaPage /></ProtectedRoute>} />
+          <Route path="/admin/diploma" element={<ProtectedRoute><DiplomaList /></ProtectedRoute>} />
+          <Route path="/admin/edit-diploma/:id" element={<ProtectedRoute><EditDiploma /></ProtectedRoute>} />
+          <Route path="/admin/upload-notes" element={<ProtectedRoute><NotesUpload /></ProtectedRoute>} />
+          <Route path="/admin/notes" element={<ProtectedRoute><NotesList /></ProtectedRoute>} />
+        </Routes>
+      </div>
+      {!isAdminRoute && isSearchPage && <Footer />} {/* ✅ Footer sirf non-admin pages par */}
+    </div>
+  );
+}
 
 function App() {
   return (
     <Router>
-      <div className="min-h-screen flex flex-col">
-        <Navbar />
-        <div className="flex-grow">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/aboutSection" element={<About />} />
-            <Route path="/coursesSection" element={<Courses />} />
-            <Route path="/contactSection" element={<ContactSection />} />
-            <Route path="/admin-login" element={<AdminLogin />} />
-            <Route path="/notes" element={<StudentNotes />} />
-            <Route
-              path="/admin/add-student"
-              element={
-                <ProtectedRoute>
-                  <AdminAddStudent />
-                </ProtectedRoute>
-              }
-            />
-
-            <Route
-              path="/admin"
-              element={
-                <ProtectedRoute>
-                  <Dashboard />
-                </ProtectedRoute>
-              }
-            />
-
-            <Route
-              path="/admin/students"
-              element={
-                <ProtectedRoute>
-                  <StudentList />
-                </ProtectedRoute>
-              }
-            />
-
-            <Route
-              path="/admin/generate-certificate"
-              element={
-                <ProtectedRoute>
-                  <CertificateForm />
-                </ProtectedRoute>
-              }
-            />
-
-            <Route
-              path="/admin/certificate/:id"
-              element={
-                <ProtectedRoute>
-                  <CertificatePage />
-                </ProtectedRoute>
-              }
-            />
-
-
-            <Route
-              path="/admin/certificates"
-              element={
-                <ProtectedRoute>
-                  <CertificateList />
-                </ProtectedRoute>
-              }
-            />
-
-            <Route
-              path="/admin/edit-certificate/:id"
-              element={
-                <ProtectedRoute>
-                  <EditCertificate />
-                </ProtectedRoute>
-              }
-            />
-
-            <Route
-              path="/admin/generate-diploma"
-              element={
-                <ProtectedRoute>
-                  <DiplomaForm />
-                </ProtectedRoute>
-              }
-            />
-
-            <Route
-              path="/admin/upload-notes"
-              element={
-                <ProtectedRoute>
-                  <NotesUpload />
-                </ProtectedRoute>
-              }
-            />
-            
-            <Route
-              path="/admin/diploma/:id"
-              element={
-                <ProtectedRoute>
-                  <DiplomaPage />
-                </ProtectedRoute>
-              }
-            />
-
-            <Route
-              path="/admin/notes"
-              element={
-                <ProtectedRoute>
-                  <NotesList />
-                </ProtectedRoute>
-              }
-            />
-
-            <Route
-              path="/admin/diploma"
-              element={
-                <ProtectedRoute>
-                  <DiplomaList />
-                </ProtectedRoute>
-              }
-            />
-
-            <Route
-              path="/admin/edit-diploma/:id"
-              element={
-                <ProtectedRoute>
-                  <EditDiploma />
-                </ProtectedRoute>
-              }
-            />
-
-          </Routes>
-        </div>
-        <Footer />
-      </div>
+      <AppContent />
     </Router>
   );
 }
 
 export default App;
-

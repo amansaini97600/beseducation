@@ -576,6 +576,26 @@ app.get("/api/notes/download/:filename", (req, res) => {
   }
 });
 
+// GET certificate by registration number
+app.get("/api/certificates/search/:regNo", async (req, res) => {
+  const { regNo } = req.params;
+  try {
+    const [result] = await db.execute(
+      "SELECT * FROM certificates WHERE certificate_number = ?",
+      [regNo]
+    );
+
+    if (result.length === 0) {
+      return res.status(404).json({ message: "Certificate not found" });
+    }
+
+    res.json(result[0]);
+  } catch (err) {
+    console.error("Search error:", err);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
 // Route using token
 app.get("/api/admin/data", verifyToken, (req, res) => {
   res.json({ message: "Secure data" });

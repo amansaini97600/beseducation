@@ -124,7 +124,6 @@ export default function CertificatePage() {
       <div className="flex-1 bg-gray-100 min-h-screen">
         <AdminHeader />
         <div className="p-4">
-
           <div
             id="print-area"
             style={{
