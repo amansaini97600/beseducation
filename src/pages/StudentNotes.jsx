@@ -10,7 +10,7 @@ import tallyImg from "../assets/images/tally.png";
 
 const subjectImages = {
     Excel: excelImg,
-    // "MS Word": msWordImg,
+// "MS Word": msWordImg,~
     Tally: tallyImg,
     // PowerPoint: powerPointImg,
     HTML: htmlImg,
