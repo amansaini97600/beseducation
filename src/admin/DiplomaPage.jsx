@@ -39,7 +39,7 @@ export default function DiplomaPage() {
     //         const printWindow = window.open("", "", "width=1200,height=800");
 
     //         const deplomaHtml = `
-            
+
     //         `
     // }
 
@@ -84,13 +84,13 @@ export default function DiplomaPage() {
 
                         <div className="grid grid-cols-2 gap-4">
                             <div>
-                                <p><strong>Name:</strong> {diploma.name}</p>
-                                <p><strong>Father's Name:</strong> {diploma.father_name}</p>
-                                <p><strong>Course:</strong> {diploma.course}</p>
-                                <p><strong>Institute:</strong> {diploma.institute}</p>
-                                <p><strong>Certificate No:</strong> {diploma.certificate_number}</p>
-                                <p><strong>Compilation Date:</strong> {diploma.compilation_date}</p>
-                                <p><strong>Generation Date:</strong> {diploma.generation_date}</p>
+                                <div> {diploma.name}</div>
+                                <div>{diploma.father_name}</div>
+                                <div>{diploma.course}</div>
+                                <div>{diploma.institute}</div>
+                                <div>{diploma.certificate_number}</div>
+                                <div>{diploma.compilation_date}</div>
+                                <div>{diploma.generation_date}</div>
                             </div>
                             <div>
                                 {diploma.photo && (
@@ -107,14 +107,14 @@ export default function DiplomaPage() {
                         </div>
 
                         <div className="mt-8">
-                            <h3 className="text-xl font-bold mb-2">Marks</h3>
                             <table className="w-full border text-center">
-                                <thead className="bg-gray-200">
+                                <thead>
                                     <tr>
                                         <th className="border px-2">Subject</th>
                                         <th className="border px-2">Term</th>
                                         <th className="border px-2">Theory</th>
                                         <th className="border px-2">Practical</th>
+                                        <th className="border px-2">Grade</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -125,11 +125,13 @@ export default function DiplomaPage() {
                                                 <td className="border">I</td>
                                                 <td className="border">{terms.I?.theory}</td>
                                                 <td className="border">{terms.I?.practical}</td>
+                                                <td className="border">A</td>
                                             </tr>
                                             <tr key={`${subject}-2`}>
                                                 <td className="border">II</td>
                                                 <td className="border">{terms.II?.theory}</td>
                                                 <td className="border">{terms.II?.practical}</td>
+                                                <td className="border">A</td>
                                             </tr>
                                         </>
                                     ))}

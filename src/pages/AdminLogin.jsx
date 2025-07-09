@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
 export default function AdminLogin() {
@@ -18,7 +18,8 @@ export default function AdminLogin() {
 
       localStorage.setItem("adminToken", res.data.token);
       setMessage("Login successful!");
-      navigate("/admin"); // yahi route diya tha tumne App.jsx me
+      window.open("/admin", "_blank");
+      navigate("/"); // yahi route diya tha tumne App.jsx me
     } catch (err) {
       setMessage(err.response?.data?.message || "Login failed");
     }

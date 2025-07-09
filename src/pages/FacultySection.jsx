@@ -4,7 +4,7 @@ import aman from "../assets/teacherImage/aman.jpg";
 import gulshan from "../assets/teacherImage/gulshan.jpg";
 import parul from "../assets/teacherImage/parul.jpg";
 import soni from "../assets/teacherImage/soni2.jpg";
-import menuma from "../assets/teacherImage/menuma.jpg";
+import nigam from "../assets/teacherImage/menuma.jpg";
 import chotu from "../assets/teacherImage/chotu.jpg";
 
 const facultyMembers = [
@@ -20,7 +20,7 @@ const facultyMembers = [
   },
   {
     name: "Aman Saini",
-    role: "Web Development Trainer",
+    role: "Web & Software Trainer",
     image: aman,
   },
   {
@@ -34,9 +34,9 @@ const facultyMembers = [
     image: chotu,
   },
   {
-    name: "Mehmoona Malik",
+    name: "Nigam Rajput",
     role: "Basic Computer Expert",
-    image: menuma,
+    image: nigam,
   },
 ];
 

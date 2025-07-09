@@ -106,7 +106,7 @@ export default function DiplomaList() {
                                     <td className="border p-1">{d.certificate_number}</td>
                                     <td className="border p-1 space-x-2">
                                         <Link
-                                            to={`/admin/print-diploma/${d.id}`}
+                                            to={`/admin/diploma/${d.id}`}
                                             className="text-blue-600 hover:underline"
                                         >
                                             Print
