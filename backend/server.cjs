@@ -65,7 +65,7 @@ app.listen(process.env.PORT, () => {
 // Multer storage
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "uploads/"); // make sure this folder exists
+    cb(null, "uploads/student_photo"); // make sure this folder exists
   },
   filename: (req, file, cb) => {
     const uniqueName = Date.now() + "-" + file.originalname;
