@@ -10,7 +10,7 @@ export default function DiplomaList() {
     const [diplomas, setDiplomas] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
-    const diplomasPerPage = 10;
+    const diplomasPerPage = 20;
 
     useEffect(() => {
         const fetchDiplomas = async () => {
@@ -106,7 +106,7 @@ export default function DiplomaList() {
                                     <td className="border p-1">{d.certificate_number}</td>
                                     <td className="border p-1 space-x-2">
                                         <Link
-                                            to={`/admin/diploma/${d.id}`}
+                                            to={`/admin/diplomas/${d.id}`}
                                             className="text-blue-600 hover:underline"
                                         >
                                             Print

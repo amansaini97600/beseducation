@@ -12,6 +12,8 @@ export default function DiplomaForm() {
     fatherName: "",
     course: "A.D.C.A.",
     institute: "CEC COMPUTER INSTITUTE, DHAMPUR",
+    phone: "",
+    aadhar: "",
     dateOfCompilation: "",
     dateOfGeneration: new Date().toISOString().split("T")[0],
   });
@@ -94,6 +96,24 @@ export default function DiplomaForm() {
               value={formData.institute}
               onChange={handleChange}
               placeholder="Institute Name"
+              required
+              className="w-full border p-2 rounded"
+            />
+            <input
+              type="text"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              placeholder="Phone Number"
+              required
+              className="w-full border p-2 rounded"
+            />
+            <input
+              type="text"
+              name="aadhar"
+              value={formData.aadhar}
+              onChange={handleChange}
+              placeholder="Aadhar Number"
               required
               className="w-full border p-2 rounded"
             />

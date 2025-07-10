@@ -340,6 +340,8 @@ app.post("/api/diplomas", diploma_upload.single("photo"), async (req, res) => {
     fatherName,
     course,
     institute,
+    phone,
+    aadhar,
     dateOfCompilation,
     dateOfGeneration
   } = req.body;
@@ -367,14 +369,16 @@ app.post("/api/diplomas", diploma_upload.single("photo"), async (req, res) => {
 
   try {
     const [diplomaResult] = await db.execute(
-      `INSERT INTO diplomas (name, father_name, course, institute, photo, compilation_date, generation_date, total, percentage, grade, certificate_number)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      `INSERT INTO diplomas (name, father_name, course, institute, photo, compilation_date, generation_date, total, percentage, grade, certificate_number, phone, aadhar)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         name,
         fatherName,
         course,
         institute,
         photoPath,
+        phone,
+        aadhar,
         dateOfCompilation,
         dateOfGeneration,
         total,

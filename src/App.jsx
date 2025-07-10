@@ -26,7 +26,7 @@ import StudentCertificateSearch from "./pages/StudentCertificateSearch";
 
 function AppContent() {
   const location = useLocation();
-  const isAdminRoute = location.pathname.startsWith("/admin/");
+  const isAdminRoute = location.pathname.startsWith("/admin");
   const isSearchPage = location.pathname === "/search-certificate";
 
   return (
@@ -51,7 +51,7 @@ function AppContent() {
           <Route path="/admin/edit-certificate/:id" element={<ProtectedRoute><EditCertificate /></ProtectedRoute>} />
           <Route path="/admin/generate-diploma" element={<ProtectedRoute><DiplomaForm /></ProtectedRoute>} />
           <Route path="/admin/diploma/:id" element={<ProtectedRoute><DiplomaPage /></ProtectedRoute>} />
-          <Route path="/admin/diploma" element={<ProtectedRoute><DiplomaList /></ProtectedRoute>} />
+          <Route path="/admin/diplomas" element={<ProtectedRoute><DiplomaList /></ProtectedRoute>} />
           <Route path="/admin/edit-diploma/:id" element={<ProtectedRoute><EditDiploma /></ProtectedRoute>} />
           <Route path="/admin/upload-notes" element={<ProtectedRoute><NotesUpload /></ProtectedRoute>} />
           <Route path="/admin/notes" element={<ProtectedRoute><NotesList /></ProtectedRoute>} />

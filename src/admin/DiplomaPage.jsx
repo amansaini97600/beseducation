@@ -35,13 +35,6 @@ export default function DiplomaPage() {
     }, [id]);
 
     const handlePrint = () => window.print();
-    // const handlePrint = () => {
-    //         const printWindow = window.open("", "", "width=1200,height=800");
-
-    //         const deplomaHtml = `
-
-    //         `
-    // }
 
     if (!diploma) return <div className="text-center p-10">Loading...</div>;
 
@@ -61,7 +54,7 @@ export default function DiplomaPage() {
                     <div
                         id="print-area"
                         style={{
-                            width: "100%",
+                            width: "00%",
                             maxWidth: "840px",
                             margin: "0 auto",
                             backgroundImage: `url('${diplomaImg}')`,
@@ -110,8 +103,11 @@ export default function DiplomaPage() {
                             <table className="w-full border text-center">
                                 <thead>
                                     <tr>
+                                        <th colSpan={4} className="border px-2">Term I</th>
+                                    </tr>
+                                    <tr>
+                                        <th className="border px-2">Sr. No.</th>
                                         <th className="border px-2">Subject</th>
-                                        <th className="border px-2">Term</th>
                                         <th className="border px-2">Theory</th>
                                         <th className="border px-2">Practical</th>
                                         <th className="border px-2">Grade</th>
@@ -121,14 +117,21 @@ export default function DiplomaPage() {
                                     {Object.entries(groupedMarks).map(([subject, terms]) => (
                                         <>
                                             <tr key={`${subject}-1`}>
-                                                <td rowSpan="2" className="border font-semibold">{subject}</td>
-                                                <td className="border">I</td>
+                                                <td className="border">{terms}</td>
+                                                <td className="border font-semibold">{subject}</td>
                                                 <td className="border">{terms.I?.theory}</td>
                                                 <td className="border">{terms.I?.practical}</td>
                                                 <td className="border">A</td>
                                             </tr>
+                                        </>
+                                    ))}
+                                    <tr>
+                                        <th colSpan={4} className="border px-2">Term II</th>
+                                    </tr>
+                                    {Object.entries(groupedMarks).map(([subject, terms]) => (
+                                        <>
                                             <tr key={`${subject}-2`}>
-                                                <td className="border">II</td>
+                                                <td className="border font-semibold">{subject}</td>
                                                 <td className="border">{terms.II?.theory}</td>
                                                 <td className="border">{terms.II?.practical}</td>
                                                 <td className="border">A</td>
