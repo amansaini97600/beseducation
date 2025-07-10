@@ -16,12 +16,12 @@ import CertificatePage from "./admin/CertificatePage";
 import CertificateList from "./admin/CertificateList";
 import EditCertificate from "./admin/EditCertificate";
 import DiplomaForm from "./admin/DiplomaForm";
-import NotesUpload from "./admin/NotesUpload";
-import NotesList from "./admin/NotesList";
-import StudentNotes from "./pages/StudentNotes";
 import DiplomaPage from "./admin/DiplomaPage";
 import DiplomaList from "./admin/DiplomaList";
 import EditDiploma from "./admin/EditDiploma";
+import NotesUpload from "./admin/NotesUpload";
+import NotesList from "./admin/NotesList";
+import StudentNotes from "./pages/StudentNotes";
 import StudentCertificateSearch from "./pages/StudentCertificateSearch";
 
 function AppContent() {

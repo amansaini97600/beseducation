@@ -117,7 +117,6 @@ export default function DiplomaPage() {
                                     {Object.entries(groupedMarks).map(([subject, terms]) => (
                                         <>
                                             <tr key={`${subject}-1`}>
-                                                <td className="border">{terms}</td>
                                                 <td className="border font-semibold">{subject}</td>
                                                 <td className="border">{terms.I?.theory}</td>
                                                 <td className="border">{terms.I?.practical}</td>
