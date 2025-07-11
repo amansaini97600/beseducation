@@ -34,7 +34,7 @@ const facultyMembers = [
     image: chotu,
   },
   {
-    name: "Nigam Rajput",
+    name: "Mehnooma Malik",
     role: "Basic Computer Expert",
     image: nigam,
   },
