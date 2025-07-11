@@ -73,7 +73,7 @@ export default function CertificatePage() {
 
       </div>
     `;
-
+    
     printWindow.document.write(`
       <html>
         <head>
