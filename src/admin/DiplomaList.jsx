@@ -7,6 +7,12 @@ import AdminSidebar from "../components/AdminSidebar";
 import AdminHeader from "../components/AdminHeader";
 
 export default function DiplomaList() {
+    const capitalizeEachWord = (text) =>
+        text
+            .toLowerCase()
+            .split(" ")
+            .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(" ");
     const [diplomas, setDiplomas] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
@@ -98,8 +104,8 @@ export default function DiplomaList() {
                             {currentDiplomas.map((d, i) => (
                                 <tr key={d.id}>
                                     <td className="border p-1">{indexOfFirst + i + 1}</td>
-                                    <td className="border p-1">{d.name}</td>
-                                    <td className="border p-1">{d.father_name}</td>
+                                    <td className="border p-1">{capitalizeEachWord(d.name)}</td>
+                                    <td className="border p-1">{capitalizeEachWord(d.father_name)}</td>
                                     <td className="border p-1">{d.course}</td>
                                     <td className="border p-1">{d.phone}</td>
                                     <td className="border p-1">{d.aadhar}</td>

@@ -1,29 +1,26 @@
 @import "tailwindcss";
-@media print {
+/* @media print {
   html, body {
     margin: 0 !important;
     padding: 0 !important;
     height: 100%;
     width: 100%;
-  }
+  } */
 
-  @page {
+  /* @page {
     size: A4 portrait;
     margin: 0;
-  }
+  } */
 
-  body * {
-    visibility: hidden;
-  }
 
-  #print-area, #print-area * {
+  /* #print-area, #print-area * {
     visibility: visible;
-  }
+  } */
 
-  .no-print {
+  /* .no-print {
     display: none !important;
   }
-}
+} */
 
 /* Add to index.css or App.css */
 .scrollbar-hide::-webkit-scrollbar {
