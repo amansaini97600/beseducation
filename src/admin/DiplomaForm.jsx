@@ -176,8 +176,7 @@ export default function DiplomaForm() {
               className="w-full border p-2 rounded"
             />
             {errors.aadhar && <p className="text-red-500 text-sm">{errors.aadhar}</p>}
-
-
+            
             <input
               type="date"
               name="dateOfCompilation"

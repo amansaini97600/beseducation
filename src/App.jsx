@@ -26,7 +26,7 @@ import StudentCertificateSearch from "./pages/StudentCertificateSearch";
 
 function AppContent() {
   const location = useLocation();
-  const isAdminRoute = location.pathname.startsWith("/admin");
+  const isAdminRoute = location.pathname.startsWith("/admin/");
   const isSearchPage = location.pathname === "/search-certificate";
 
   return (

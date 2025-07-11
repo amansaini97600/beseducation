@@ -10,11 +10,11 @@ export default function EditDiploma() {
     name: "",
     father_name: "",
     course: "",
-    duration: "",
     phone: "",
     aadhar: "",
-    issue_date: "",
-    certificate_number: ""
+    dateOfGeneration: "",
+    dateOfCompilation: "",
+
   });
 
   useEffect(() => {
@@ -84,14 +84,7 @@ export default function EditDiploma() {
           className="w-full border p-2 rounded"
           required
         />
-        <input
-          type="text"
-          name="duration"
-          value={formData.duration}
-          onChange={handleChange}
-          placeholder="Duration"
-          className="w-full border p-2 rounded"
-        />
+
         <input
           type="text"
           name="phone"
@@ -108,19 +101,24 @@ export default function EditDiploma() {
           placeholder="Aadhar Number"
           className="w-full border p-2 rounded"
         />
-        <input
-          type="text"
-          name="certificate_number"
-          value={formData.certificate_number}
-          onChange={handleChange}
-          placeholder="Certificate Number"
-          className="w-full border p-2 rounded"
-        />
+
         <input
           type="date"
-          name="issue_date"
-          value={formData.issue_date?.split("T")[0] || ""}
+          name="dateOfCompilation"
+          value={formData.compilation_date?.split("T")[0] || ""}
           onChange={handleChange}
+          placeholder="Date of Compilation"
+          required
+          className="w-full border p-2 rounded"
+        />
+
+        <input
+          type="date"
+          name="dateOfGeneration"
+          value={formData.generation_date?.split("T")[0] || ""}
+          onChange={handleChange}
+          placeholder="Date of Generation"
+          required
           className="w-full border p-2 rounded"
         />
 

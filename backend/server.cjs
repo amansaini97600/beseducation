@@ -65,7 +65,7 @@ app.listen(process.env.PORT, () => {
 // Multer storage
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "uploads/student_photo"); // make sure this folder exists
+    cb(null, "uploads/student_photos/"); // make sure this folder exists
   },
   filename: (req, file, cb) => {
     const uniqueName = Date.now() + "-" + file.originalname;
@@ -166,7 +166,7 @@ app.get("/api/students", async (req, res) => {
 });
 
 // add certificates
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 const cert_storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -180,61 +180,68 @@ const cert_storage = multer.diskStorage({
 
 const cert_upload = multer({ storage: cert_storage });
 
-app.post("/api/certificates", verifyToken, cert_upload.single("photo"), async (req, res) => {
-  const {
-    name,
-    fatherName,
-    course,
-    duration,
-    issueDate,
-    certificateType,
-    grade,
-    aadharNumber,
-    phoneNumber,
-  } = req.body;
+app.post(
+  "/api/certificates",
+  verifyToken,
+  cert_upload.single("photo"),
+  async (req, res) => {
+    const {
+      name,
+      fatherName,
+      course,
+      duration,
+      issueDate,
+      certificateType,
+      grade,
+      aadharNumber,
+      phoneNumber,
+    } = req.body;
 
-  const photoPath = req.file ? "/uploads/cert_photos/" + req.file.filename : null;
-  console.log("Photo to send:", photoPath);
+    const photoPath = req.file
+      ? "/uploads/cert_photos/" + req.file.filename
+      : null;
+    console.log("Photo to send:", photoPath);
 
-  try {
-    const [result] = await db.execute(
-      `INSERT INTO certificates 
+    try {
+      const [result] = await db.execute(
+        `INSERT INTO certificates 
         (name, father_name, course, duration, issue_date, type, grade,photo,aadhar,phone) 
        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      [
-        name,
-        fatherName,
-        course,
-        duration,
-        issueDate,
-        certificateType,
-        grade,
-        photoPath,
-        aadharNumber,
-        phoneNumber,
-      ]
-    );
+        [
+          name,
+          fatherName,
+          course,
+          duration,
+          issueDate,
+          certificateType,
+          grade,
+          photoPath,
+          aadharNumber,
+          phoneNumber,
+        ]
+      );
 
-    const newId = result.insertId;
-    const certificateNumber = newId + 1200;
+      const newId = result.insertId;
+      const certificateNumber = newId + 1200;
 
-    // Update certificate_number
-    await db.execute(
-      "UPDATE certificates SET certificate_number = ? WHERE id = ?",
-      [certificateNumber, newId]
-    );
+      // Update certificate_number
+      await db.execute(
+        "UPDATE certificates SET certificate_number = ? WHERE id = ?",
+        [certificateNumber, newId]
+      );
 
-    // Send back the newly inserted certificate's ID
-    res.json({
-      message: "Certificate saved successfully",
-      id: newId,
-      certificateNumber,
-    });
-  } catch (err) {
-    console.error("Insert error:", err);
-    res.status(500).json({ message: "Database insert failed" });
+      // Send back the newly inserted certificate's ID
+      res.json({
+        message: "Certificate saved successfully",
+        id: newId,
+        certificateNumber,
+      });
+    } catch (err) {
+      console.error("Insert error:", err);
+      res.status(500).json({ message: "Database insert failed" });
+    }
   }
-});
+);
 
 // Backend route
 app.get("/api/certificates/:id", verifyToken, async (req, res) => {
@@ -256,7 +263,9 @@ app.get("/api/certificates/:id", verifyToken, async (req, res) => {
 //todo search certificate list
 app.get("/api/certificates", verifyToken, async (req, res) => {
   try {
-    const [result] = await db.execute("SELECT * FROM certificates ORDER BY id DESC");
+    const [result] = await db.execute(
+      "SELECT * FROM certificates ORDER BY id DESC"
+    );
     res.json(result);
   } catch (err) {
     console.error("Fetch all error:", err);
@@ -264,48 +273,64 @@ app.get("/api/certificates", verifyToken, async (req, res) => {
   }
 });
 
-
 // todo edit certificate
-app.put("/api/certificates/:id", verifyToken, cert_upload.single("photo"), async (req, res) => {
-  const { id } = req.params;
-  const {
-    name,
-    fatherName,
-    course,
-    duration,
-    issueDate,
-    certificateType,
-    grade,
-    certificateNumber,
-    phoneNumber,
-    aadharNumber,
-  } = req.body;
+app.put(
+  "/api/certificates/:id",
+  verifyToken,
+  cert_upload.single("photo"),
+  async (req, res) => {
+    const { id } = req.params;
+    const {
+      name,
+      fatherName,
+      course,
+      duration,
+      issueDate,
+      certificateType,
+      grade,
+      certificateNumber,
+      phoneNumber,
+      aadharNumber,
+    } = req.body;
 
-  const photoPath = req.file ? "/uploads/cert_photos/" + req.file.filename : null;
+    const photoPath = req.file
+      ? "/uploads/cert_photos/" + req.file.filename
+      : null;
 
-  try {
-    let query = `UPDATE certificates SET 
+    try {
+      let query = `UPDATE certificates SET 
       name = ?, father_name = ?, course = ?, duration = ?, issue_date = ?, type = ?, grade = ?, certificate_number = ?, phone = ?, aadhar = ?`;
 
-    const params = [name, fatherName, course, duration, issueDate, certificateType, grade, certificateNumber, phoneNumber, aadharNumber];
+      const params = [
+        name,
+        fatherName,
+        course,
+        duration,
+        issueDate,
+        certificateType,
+        grade,
+        certificateNumber,
+        phoneNumber,
+        aadharNumber,
+      ];
 
-    if (photoPath) {
-      query += `, photo = ?`;
-      params.push(photoPath);
+      if (photoPath) {
+        query += `, photo = ?`;
+        params.push(photoPath);
+      }
+
+      query += ` WHERE id = ?`;
+      params.push(id);
+
+      await db.execute(query, params);
+
+      res.json({ message: "Certificate updated successfully" });
+    } catch (err) {
+      console.error("Update error:", err);
+      res.status(500).json({ message: "Database update failed" });
     }
-
-    query += ` WHERE id = ?`;
-    params.push(id);
-
-    await db.execute(query, params);
-
-    res.json({ message: "Certificate updated successfully" });
-  } catch (err) {
-    console.error("Update error:", err);
-    res.status(500).json({ message: "Database update failed" });
   }
-});
-
+);
 
 // todo Diploma add
 // 📁 server.cjs or your main backend file
@@ -343,7 +368,7 @@ app.post("/api/diplomas", diploma_upload.single("photo"), async (req, res) => {
     phone,
     aadhar,
     dateOfCompilation,
-    dateOfGeneration
+    dateOfGeneration,
   } = req.body;
 
   const subjects = ["A.C.C.", "D.C.A.", "D.T.P.", "TALLY 9.0", "TALLY 9.4"];
@@ -362,14 +387,16 @@ app.post("/api/diplomas", diploma_upload.single("photo"), async (req, res) => {
     marks.push({ term: "II", subject, theory: t2, practical: p2 });
   });
 
-  const percentage = parseFloat((total / 1500 * 100).toFixed(2));
+  const percentage = parseFloat(((total / 1500) * 100).toFixed(2));
   const grade = generateGrade(percentage);
 
-  const photoPath = req.file ? "/uploads/diploma_photos/" + req.file.filename : null;
+  const photoPath = req.file
+    ? "/uploads/diploma_photos/" + req.file.filename
+    : null;
 
   try {
     const [diplomaResult] = await db.execute(
-      `INSERT INTO diplomas (name, father_name, course, institute, photo, compilation_date, generation_date, total, percentage, grade, certificate_number, phone, aadhar)
+      `INSERT INTO diplomas (name, father_name, course, institute, photo, compilation_date, generation_date, total, percentage, grade, diploma_number, phone, aadhar)
        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         name,
@@ -377,24 +404,24 @@ app.post("/api/diplomas", diploma_upload.single("photo"), async (req, res) => {
         course,
         institute,
         photoPath,
-        phone,
-        aadhar,
         dateOfCompilation,
         dateOfGeneration,
         total,
         percentage,
         grade,
-        null // placeholder for certificate_number
+        null, // placeholder for diploma_number
+        phone,
+        aadhar,
       ]
     );
 
     const diplomaId = diplomaResult.insertId;
-    const certificateNumber = 1200 + diplomaId;
+    const diplomaNumber = 1200 + diplomaId;
 
-    await db.execute(
-      `UPDATE diplomas SET certificate_number = ? WHERE id = ?`,
-      [certificateNumber, diplomaId]
-    );
+    await db.execute(`UPDATE diplomas SET diploma_number = ? WHERE id = ?`, [
+      diplomaNumber,
+      diplomaId,
+    ]);
 
     for (const m of marks) {
       await db.execute(
@@ -418,7 +445,9 @@ app.get("/api/diplomas/:id", verifyToken, async (req, res) => {
   const { id } = req.params;
 
   try {
-    const [result] = await db.execute("SELECT * FROM diplomas WHERE id = ?", [id]);
+    const [result] = await db.execute("SELECT * FROM diplomas WHERE id = ?", [
+      id,
+    ]);
 
     if (result.length === 0) {
       return res.status(404).json({ message: "Diploma not found" });
@@ -435,7 +464,10 @@ app.get("/api/diplomas/:id/marks", verifyToken, async (req, res) => {
   const { id } = req.params;
 
   try {
-    const [rows] = await db.execute("SELECT * FROM diploma_marks WHERE diploma_id = ?", [id]);
+    const [rows] = await db.execute(
+      "SELECT * FROM diploma_marks WHERE diploma_id = ?",
+      [id]
+    );
 
     if (rows.length === 0) {
       return res.status(404).json({ message: "No marks found" });
@@ -448,7 +480,6 @@ app.get("/api/diplomas/:id/marks", verifyToken, async (req, res) => {
   }
 });
 
-
 //todo diploma list
 app.get("/api/diplomas", verifyToken, async (req, res) => {
   try {
@@ -460,35 +491,32 @@ app.get("/api/diplomas", verifyToken, async (req, res) => {
   }
 });
 
-// todo edit diploma 
+// todo edit diploma
 app.put("/api/diplomas/:id", verifyToken, async (req, res) => {
   const { id } = req.params;
   const {
     name,
     father_name,
     course,
-    duration,
     phone,
     aadhar,
-    issue_date,
-    certificate_number
+    compilation_date,
+    generation_date,
   } = req.body;
 
   try {
     const [result] = await db.execute(
       `UPDATE diplomas 
-       SET name = ?, father_name = ?, course = ?, duration = ?, 
-           phone = ?, aadhar = ?, issue_date = ?, certificate_number = ? 
+       SET name = ?, father_name = ?, course = ?, phone = ?, aadhar = ?, compilation_date = ?, generation_date = ?
        WHERE id = ?`,
       [
         name,
         father_name,
         course,
-        duration,
         phone,
         aadhar,
-        issue_date,
-        certificate_number,
+        compilation_date,
+        generation_date,
         id,
       ]
     );
@@ -513,7 +541,7 @@ const notes_storage = multer.diskStorage({
   filename: function (req, file, cb) {
     const uniqueName = Date.now() + "-" + file.originalname;
     cb(null, uniqueName);
-  }
+  },
 });
 
 const notes_upload = multer({ storage: notes_storage }); // ✅ Fixed here
@@ -545,7 +573,9 @@ app.post("/api/notes", notes_upload.single("file"), async (req, res) => {
 
 app.get("/api/notes", async (req, res) => {
   try {
-    const [rows] = await db.execute("SELECT * FROM notes ORDER BY uploaded_at DESC");
+    const [rows] = await db.execute(
+      "SELECT * FROM notes ORDER BY uploaded_at DESC"
+    );
     res.json(rows);
   } catch (err) {
     console.error("Fetch error:", err);
@@ -565,7 +595,7 @@ app.delete("/api/notes/:id", async (req, res) => {
   }
 });
 
-// todo Download notes 
+// todo Download notes
 const fs = require("fs");
 
 app.get("/api/notes/download/:filename", (req, res) => {

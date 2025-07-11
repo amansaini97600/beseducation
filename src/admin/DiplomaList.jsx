@@ -90,7 +90,7 @@ export default function DiplomaList() {
                                 <th className="border p-1">Course</th>
                                 <th className="border p-1">Phone</th>
                                 <th className="border p-1">Aadhar</th>
-                                <th className="border p-1">Certificate No</th>
+                                <th className="border p-1">Diploma No</th>
                                 <th className="border p-1">Actions</th>
                             </tr>
                         </thead>
@@ -103,7 +103,7 @@ export default function DiplomaList() {
                                     <td className="border p-1">{d.course}</td>
                                     <td className="border p-1">{d.phone}</td>
                                     <td className="border p-1">{d.aadhar}</td>
-                                    <td className="border p-1">{d.certificate_number}</td>
+                                    <td className="border p-1">{d.diploma_number}</td>
                                     <td className="border p-1 space-x-2">
                                         <Link
                                             to={`/admin/diploma/${d.id}`}

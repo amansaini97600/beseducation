@@ -54,8 +54,8 @@ export default function DiplomaPage() {
                     <div
                         id="print-area"
                         style={{
-                            width: "00%",
-                            maxWidth: "840px",
+                            width: "100%",
+                            maxWidth: "885px",
                             margin: "0 auto",
                             backgroundImage: `url('${diplomaImg}')`,
                             backgroundSize: "cover",
@@ -64,6 +64,7 @@ export default function DiplomaPage() {
                             position: "relative",
                             height: "1175px",
                             boxShadow: "0 0 10px rgba(0,0,0,0.2)",
+                            padding: "60px",
                         }}
                     >
                         <div className="flex justify-between mb-6 absolute">
@@ -75,7 +76,7 @@ export default function DiplomaPage() {
                             </button>
                         </div>
 
-                        <div className="grid grid-cols-2 gap-4">
+                        <div className="grid grid-cols-2 gap-4 pt-55">
                             <div>
                                 <div> {diploma.name}</div>
                                 <div>{diploma.father_name}</div>
@@ -93,31 +94,32 @@ export default function DiplomaPage() {
                                         className="w-40 h-40 object-cover border"
                                     />
                                 )}
-                                <p><strong>Total:</strong> {diploma.total}</p>
+                                {/* <p><strong>Total:</strong> {diploma.total}</p>
                                 <p><strong>Percentage:</strong> {diploma.percentage}%</p>
-                                <p><strong>Grade:</strong> {diploma.grade}</p>
+                                <p><strong>Grade:</strong> {diploma.grade}</p> */}
                             </div>
                         </div>
 
                         <div className="mt-8">
                             <table className="w-full border text-center">
                                 <thead>
-                                    <tr>
-                                        <th colSpan={4} className="border px-2">Term I</th>
+                                    <tr className="px-10">
+                                        <th className="border py-3">Sr. No.</th>
+                                        <th className="border py-3">SUBJECT</th>
+                                        <th className="border py-3">THEORY</th>
+                                        <th className="border py-3">PRACTICAL</th>
+                                        <th className="border py-3">GRADE</th>
                                     </tr>
                                     <tr>
-                                        <th className="border px-2">Sr. No.</th>
-                                        <th className="border px-2">Subject</th>
-                                        <th className="border px-2">Theory</th>
-                                        <th className="border px-2">Practical</th>
-                                        <th className="border px-2">Grade</th>
+                                        <th colSpan={5} className="border py-3">-TERM-I-</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {Object.entries(groupedMarks).map(([subject, terms]) => (
                                         <>
                                             <tr key={`${subject}-1`}>
-                                                <td className="border font-semibold">{subject}</td>
+                                                <td className="border">1</td>
+                                                <td className="border font-semibold text-left pl-3">{subject}</td>
                                                 <td className="border">{terms.I?.theory}</td>
                                                 <td className="border">{terms.I?.practical}</td>
                                                 <td className="border">A</td>
@@ -125,18 +127,24 @@ export default function DiplomaPage() {
                                         </>
                                     ))}
                                     <tr>
-                                        <th colSpan={4} className="border px-2">Term II</th>
+                                        <th colSpan={5} className="border py-3">-TERM-II-</th>
                                     </tr>
                                     {Object.entries(groupedMarks).map(([subject, terms]) => (
                                         <>
                                             <tr key={`${subject}-2`}>
-                                                <td className="border font-semibold">{subject}</td>
+                                                <td className="border">1</td>
+                                                <td className="border font-semibold text-left pl-3">{subject}</td>
                                                 <td className="border">{terms.II?.theory}</td>
                                                 <td className="border">{terms.II?.practical}</td>
                                                 <td className="border">A</td>
                                             </tr>
                                         </>
                                     ))}
+                                    <tr className="font-semibold">
+                                        <td className="py-3 ">Total:   {diploma.total}</td>
+                                        <td>{diploma.percentage}%</td>
+                                        <td colSpan={3} className="border">Total Cred:   {diploma.grade}</td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
