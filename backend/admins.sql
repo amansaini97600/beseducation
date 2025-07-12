@@ -40,8 +40,6 @@ ADD COLUMN certificate_number VARCHAR(255),
 ADD COLUMN grade VARCHAR(20),
 ADD COLUMN completion_date DATE;
 
-
-
 --! generate password
 -- const bcrypt = require("bcryptjs");
 
@@ -70,7 +68,6 @@ CREATE TABLE diplomas (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-
 CREATE TABLE diploma_marks (
   id INT PRIMARY KEY AUTO_INCREMENT,
   diploma_id INT,
@@ -80,6 +77,3 @@ CREATE TABLE diploma_marks (
   practical INT,
   FOREIGN KEY (diploma_id) REFERENCES diplomas(id) ON DELETE CASCADE
 );
-
-
-
