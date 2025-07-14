@@ -629,6 +629,35 @@ app.get("/api/certificates/search/:regNo", async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
+// diploma search student 
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.get("/api/diplomas/:id", async (req, res) => {
+    const diplomaNumber = req.params.id;
+    try {
+        const [result] = await pool.query("SELECT * FROM diplomas WHERE diploma_number = ?", [diplomaNumber]);
+
+        if (result.length === 0) {
+            return res.status(404).json({ message: "Diploma not found" });
+        }
+
+        res.json(result[0]);
+    } catch (err) {
+        console.error("Error fetching diploma:", err);
+        res.status(500).json({ message: "Server error" });
+    }
+});
+
+// ✅ Get diploma marks by diploma_number (for student)
+app.get("/api/diplomas/:id/marks", async (req, res) => {
+    const diplomaNumber = req.params.id;
+    try {
+        const [marks] = await pool.query("SELECT * FROM diploma_marks WHERE diploma_number = ?", [diplomaNumber]);
+        res.json(marks);
+    } catch (err) {
+        console.error("Error fetching marks:", err);
+        res.status(500).json({ message: "Server error" });
+    }
+});
 
 // Route using token
 app.get("/api/admin/data", verifyToken, (req, res) => {

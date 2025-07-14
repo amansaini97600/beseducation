@@ -12,6 +12,7 @@ export default function Navbar() {
           <Link to="/coursesSection" className="hover:text-yellow-300 transition">Courses</Link>
           <Link to="/notes" className="hover:text-yellow-300 transition">Notes</Link>
           <Link to="/certificate/search" className="hover:text-yellow-300 transition">Certificate</Link>
+          <Link to="/student/diploma" className="hover:text-yellow-300 transition">Diploma</Link>
           <Link to="/contactSection" className="hover:text-yellow-300 transition">Contact</Link>
           <Link to="/admin-login" className="hover:text-yellow-300 transition">Admin</Link>
         </div>

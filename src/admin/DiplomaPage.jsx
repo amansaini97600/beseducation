@@ -20,8 +20,11 @@ export default function DiplomaPage() {
                 const diplomaData = await res1.json();
 
                 const res2 = await fetch(`http://localhost:5000/api/diplomas/${id}/marks`, {
-                    headers: { Authorization: `Bearer ${token}` },
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("adminToken")}` // add this
+                    }
                 });
+
                 const marksData = await res2.json();
 
                 setDiploma(diplomaData);
@@ -119,7 +122,7 @@ export default function DiplomaPage() {
                                         <img
                                             src={`http://localhost:5000${diploma.photo}`}
                                             alt="Student"
-                                            className="w-32 h-40 object-cover border"
+                                            className="w-30 h-40 object-cover border rounded-md"
                                         />
                                     )}
                                 </div>
@@ -181,14 +184,14 @@ export default function DiplomaPage() {
                                     <div>{new Date(diploma.generation_date).toLocaleDateString("en-GB")}</div>
                                 </div>
                             </div>
-                                <div className="flex justify-end mb-6 top-5 z-10 absolute">
-                                    <button
-                                        onClick={handlePrint}
-                                        className="bg-blue-600 text-white px-4 py-2 rounded not-print"
-                                    >
-                                        Print Diploma
-                                    </button>
-                                </div>
+                            <div className="flex justify-end mb-6 top-5 z-10 absolute">
+                                <button
+                                    onClick={handlePrint}
+                                    className="bg-blue-600 text-white px-4 py-2 rounded not-print"
+                                >
+                                    Print Diploma
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>

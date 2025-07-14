@@ -23,6 +23,7 @@ import NotesUpload from "./admin/NotesUpload";
 import NotesList from "./admin/NotesList";
 import StudentNotes from "./pages/StudentNotes";
 import StudentCertificateSearch from "./pages/StudentCertificateSearch";
+import StudentDiplomaSearch from "./pages/StudentDiplomaSearch";
 
 function AppContent() {
   const location = useLocation();
@@ -41,6 +42,8 @@ function AppContent() {
           <Route path="/admin-login" element={<AdminLogin />} />
           <Route path="/notes" element={<StudentNotes />} />
           <Route path="/certificate/search" element={<StudentCertificateSearch />} />
+          <Route path="/student/diploma" element={<StudentDiplomaSearch />} />
+
 
           <Route path="/admin" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
           <Route path="/admin/add-student" element={<ProtectedRoute><AdminAddStudent /></ProtectedRoute>} />
