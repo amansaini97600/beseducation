@@ -425,8 +425,8 @@ app.post("/api/diplomas", diploma_upload.single("photo"), async (req, res) => {
 
     for (const m of marks) {
       await db.execute(
-        `INSERT INTO diploma_marks (diploma_id, term, subject, theory, practical) VALUES (?, ?, ?, ?, ?)`,
-        [diplomaId, m.term, m.subject, m.theory, m.practical]
+        `INSERT INTO diploma_marks (diploma_id, term, subject, theory, practical,diploma_number ) VALUES (?, ?, ?, ?, ?, ?)`,
+        [diplomaId, m.term, m.subject, m.theory, m.practical, diplomaNumber]
       );
     }
 
