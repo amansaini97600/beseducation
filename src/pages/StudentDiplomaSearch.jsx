@@ -13,11 +13,11 @@ export default function StudentDiplomaSearch() {
             setDiploma(null);
             setMarks([]);
 
-            const res1 = await fetch(`http://localhost:5000/api/diplomas/${searchId}`);
+            const res1 = await fetch(`http://localhost:5000/api/diplomas/search/${searchId}`);
             if (!res1.ok) throw new Error("Diploma not found");
             const diplomaData = await res1.json();
 
-            const res2 = await fetch(`http://localhost:5000/api/diplomas/${searchId}/marks`);
+            const res2 = await fetch(`http://localhost:5000/api/diplomas/search/${searchId}/marks`);
             if (!res2.ok) throw new Error("Marks not found");
             const marksData = await res2.json();
 
@@ -36,7 +36,8 @@ export default function StudentDiplomaSearch() {
     }, {});
 
     return (
-        <div className="bg-gray-100 min-h-screen p-6">
+        <div className="bg-gray-100 min-h-screen p-6 mt-16">
+            {!diploma ? (
             <div className="max-w-xl mx-auto bg-white rounded shadow-md p-6 mb-6">
                 <h2 className="text-2xl font-bold mb-4 text-center">Diploma Search</h2>
                 <div className="flex gap-4">
@@ -55,24 +56,24 @@ export default function StudentDiplomaSearch() {
                     </button>
                 </div>
                 {error && <p className="text-red-500 mt-3">{error}</p>}
-            </div>
+            </div>)
 
-            {diploma && (
-                <div className="relative bg-white shadow-md max-w-4xl mx-auto p-10" style={{ height: "1120px" }}>
+             : (
+                <div className="relative bg-white shadow-md max-w-4xl mx-auto p-15" style={{ height: "1120px", width: "790px"}}>
                     <img
                         src={diplomaImg}
                         alt="Diploma Background"
                         className="absolute top-0 left-0 w-full h-full object-cover z-0"
                     />
 
-                    <div className="relative z-10 pt-32">
+                    <div className="relative z-10 pt-35">
                         <div className="flex">
                             <div className="flex-1 pr-4 flex items-end">
                                 <table className="table-auto w-full text-left border-separate border-spacing-y-2">
                                     <tbody>
                                         <tr>
                                             <td className="font-bold">NAME</td>
-                                            <td>:</td>
+                                            <td className="pr-3">:</td>
                                             <td className="font-semibold">{diploma.name.toUpperCase()}</td>
                                         </tr>
                                         <tr>
@@ -156,7 +157,7 @@ export default function StudentDiplomaSearch() {
                                 </tbody>
                             </table>
                             <div className="flex pt-13 justify-between font-semibold">
-                                <div className="items-end flex flex-col w-58">{new Date(diploma.compilation_date).toLocaleDateString("en-GB")}</div>
+                                <div className="items-end flex flex-col w-65">{new Date(diploma.compilation_date).toLocaleDateString("en-GB")}</div>
                                 <div>{new Date(diploma.generation_date).toLocaleDateString("en-GB")}</div>
                             </div>
                         </div>

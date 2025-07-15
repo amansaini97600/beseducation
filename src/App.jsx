@@ -60,7 +60,7 @@ function AppContent() {
           <Route path="/admin/notes" element={<ProtectedRoute><NotesList /></ProtectedRoute>} />
         </Routes>
       </div>
-      {!isAdminRoute && isSearchPage && <Footer />} {/* ✅ Footer sirf non-admin pages par */}
+      {!isAdminRoute && !isSearchPage && <Footer />} {/* ✅ Footer sirf non-admin pages par */}
     </div>
   );
 }
