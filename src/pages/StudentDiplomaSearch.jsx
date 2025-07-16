@@ -66,7 +66,7 @@ export default function StudentDiplomaSearch() {
                         className="absolute top-0 left-0 w-full h-full object-cover z-0"
                     />
 
-                    <div className="relative z-10 pt-35">
+                    <div className="relative z-10 pt-36">
                         <div className="flex">
                             <div className="flex-1 pr-4 flex items-end">
                                 <table className="table-auto w-full text-left border-separate border-spacing-y-2">
@@ -145,14 +145,14 @@ export default function StudentDiplomaSearch() {
                                         </tr>
                                     ))}
                                     <tr className="font-semibold">
-                                        <td className="py-2 text-left pl-3"><strong>Total: </strong></td>
+                                        <td className="py-2 text-left pl-3"><strong>Total : </strong></td>
                                         <td>
                                             <div className="grid grid-cols-2 gap-4">
                                                 <div className="text-left font-semibold">{diploma.total}</div>
                                                 <div className="font-semibold">{Number(diploma.percentage).toFixed(2)}%</div>
                                             </div>
                                         </td>
-                                        <td colSpan={3} className="border"><strong className="pr-5 ">Total Cred: </strong>  {diploma.grade}</td>
+                                        <td colSpan={3} className="border"><strong className="pr-5 ">Total Cred : </strong>  {diploma.grade}</td>
                                     </tr>
                                 </tbody>
                             </table>
