@@ -610,7 +610,7 @@ app.get("/api/notes/download/:filename", (req, res) => {
   }
 });
 
-//todo GET certificate by registration number
+// GET certificate by registration number
 app.get("/api/certificates/search/:regNo", async (req, res) => {
   const { regNo } = req.params;
   try {
@@ -629,9 +629,9 @@ app.get("/api/certificates/search/:regNo", async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
-
 //todo diploma search student 
-// app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.get("/api/diplomas/search/:id", async (req, res) => {
     const diplomaNumber = req.params.id;
     try {

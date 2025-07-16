@@ -149,7 +149,7 @@ export default function CertificatePage() {
             </div>
             <div style={{ position: "absolute", top: "257px", left: "400px", fontSize: "16px", fontWeight: "bold" }}>{data.name.toUpperCase()}</div>
             <div style={{ position: "absolute", top: "285px", left: "230px", fontSize: "16px", fontWeight: "bold" }}>{data.father_name.toUpperCase()}</div>
-            <div style={{ position: "absolute", top: "341px", left: "233px", fontSize: "16px", fontWeight: "bold" }}>{data.course.toUpperCase()}</div>
+            <div style={{ position: "absolute", top: "341px", left: "160px", fontSize: "16px", fontWeight: "bold" }}>{data.course.toUpperCase()}</div>
             <div style={{ position: "absolute", top: "341px", right: "165px", fontSize: "16px", fontWeight: "bold" }}>{data.duration.toUpperCase()}</div>
             <div style={{ position: "absolute", bottom: "206px", left: "435px", fontSize: "16px", fontWeight: "bold" }}>"{data.grade}"</div>
             <div style={{ position: "absolute", bottom: "179px", left: "300px", fontSize: "16px", fontWeight: "bold" }}>{data.certificate_number}MBD/11907</div>
