@@ -632,10 +632,10 @@ app.get("/api/certificates/search/:regNo", async (req, res) => {
 //todo diploma search student 
 
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
-app.get("/api/diplomas/:id", async (req, res) => {
+app.get("/api/diplomas/search/:id", async (req, res) => {
     const diplomaNumber = req.params.id;
     try {
-        const [result] = await pool.query("SELECT * FROM diplomas WHERE diploma_number = ?", [diplomaNumber]);
+        const [result] = await db.execute("SELECT * FROM diplomas WHERE diploma_number = ?", [diplomaNumber]);
 
         if (result.length === 0) {
             return res.status(404).json({ message: "Diploma not found" });
@@ -649,10 +649,10 @@ app.get("/api/diplomas/:id", async (req, res) => {
 });
 
 // ✅ Get diploma marks by diploma_number (for student)
-app.get("/api/diplomas/:id/marks", async (req, res) => {
+app.get("/api/diplomas/search/:id/marks", async (req, res) => {
     const diplomaNumber = req.params.id;
     try {
-        const [marks] = await pool.query("SELECT * FROM diploma_marks WHERE diploma_number = ?", [diplomaNumber]);
+        const [marks] = await db.execute("SELECT * FROM diploma_marks WHERE diploma_number = ?", [diplomaNumber]);
         res.json(marks);
     } catch (err) {
         console.error("Error fetching marks:", err);
