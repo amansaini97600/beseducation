@@ -11,7 +11,7 @@ export default function AdminLogin() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:5000/api/admin/login", {
+      const res = await axios.post("https://beseducation-backend.onrender.com/api/admin/login", {
         email,
         password,
       });

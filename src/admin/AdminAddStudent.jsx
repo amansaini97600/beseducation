@@ -35,7 +35,7 @@ export default function AdminAddStudent() {
     }
 
     try {
-      await axios.post("http://localhost:5000/api/admin/students", data, {
+      await axios.post("https://beseducation-backend.onrender.com/api/admin/students", data, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`

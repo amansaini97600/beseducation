@@ -11,6 +11,12 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.use(cors({
+  origin: 'https://www.beseducation.in',  // ← yahan apna BigRock domain likho
+  credentials: true
+}));
+
+
 app.post("/api/admin/login", async (req, res) => {
   const { email, password } = req.body;
 
