@@ -1,6 +1,4 @@
-import { fileURLToPath } from 'url';
-import path from 'path';
-import { fileURLToPath } from 'url';
+const { fileURLToPath } = require('url');
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
