@@ -42,7 +42,7 @@ export default function CertificateList() {
     useEffect(() => {
         const fetchCertificates = async () => {
             try {
-                const res = await axios.get("https://beseducation-backend.onrender.com/api/certificates", {
+                const res = await axios.get("https://beseducation.onrender.com/api/certificates", {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("adminToken")}`,
                     },
