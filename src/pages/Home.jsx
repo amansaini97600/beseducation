@@ -13,7 +13,7 @@ const Home = () => {
         <title>Home | CEC Computer Centre Dhampur</title>
         <meta name="description" content="Enroll in computer courses at CEC Computer Centre Dhampur — the best place for C, C++, DCA, Python, Java, and more." />
         <meta name="keywords" content="Coaching, Computer Courses, Dhampur, ADCA, DCA, CCC" />
-        <link rel="canonical" href="https://yourdomain.com/" />
+        {/* <link rel="canonical" href="https://beseducation.in/" /> */}
       </Helmet>
       <HeroSection />
       <AboutSection />
