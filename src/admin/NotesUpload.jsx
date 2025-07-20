@@ -27,7 +27,7 @@ const NotesUpload = () => {
 
         // Replace this with your backend endpoint
         try {
-            const res = await fetch('https://beseducation-backend.onrender.com/notes', {
+            const res = await fetch('https://beseducation-backend.onrender.com/api/notes', {
                 method: 'POST',
                 body: data,
             });

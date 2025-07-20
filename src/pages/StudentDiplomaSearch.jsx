@@ -13,11 +13,11 @@ export default function StudentDiplomaSearch() {
             setDiploma(null);
             setMarks([]);
 
-            const res1 = await fetch(`https://beseducation-backend.onrender.com/diplomas/search/${searchId}`);
+            const res1 = await fetch(`https://beseducation-backend.onrender.com/api/diplomas/search/${searchId}`);
             if (!res1.ok) throw new Error("Diploma not found");
             const diplomaData = await res1.json();
 
-            const res2 = await fetch(`https://beseducation-backend.onrender.com/diplomas/search/${searchId}/marks`);
+            const res2 = await fetch(`https://beseducation-backend.onrender.com/api/diplomas/search/${searchId}/marks`);
             if (!res2.ok) throw new Error("Marks not found");
             const marksData = await res2.json();
 
@@ -100,7 +100,7 @@ export default function StudentDiplomaSearch() {
                                 </div>
                                 {diploma.photo && (
                                     <img
-                                        src={`https://beseducation-backend.onrender.com${diploma.photo}`}
+                                        src={`https://beseducation-backend.onrender.com/api${diploma.photo}`}
                                         alt="Student"
                                         className="w-30 h-40 object-cover border rounded-md"
                                     />
