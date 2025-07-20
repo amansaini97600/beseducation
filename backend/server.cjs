@@ -10,11 +10,18 @@ require("dotenv").config();
 const app = express();
 app.use(cors());
 app.use(express.json());
+const PORT = process.env.PORT || 5000;
 
 app.use(cors({
-  origin: 'https://www.beseducation.in',  // ← yahan apna BigRock domain likho
+  origin: 'https://beseducation.in',  // ← yahan apna BigRock domain likho
   credentials: true
 }));
+
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
 
 
 app.post("/api/admin/login", async (req, res) => {

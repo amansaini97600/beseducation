@@ -24,7 +24,7 @@ export default function EditCertificate() {
   useEffect(() => {
     const fetchCertificate = async () => {
       try {
-        const res = await axios.get(`https://beseducation-backend.onrender.com/api/certificates/${id}`, {
+        const res = await axios.get(`https://beseducation-backend.onrender.com/certificates/${id}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("adminToken")}`,
           },
@@ -64,7 +64,7 @@ export default function EditCertificate() {
     }
 
     try {
-      await axios.put(`https://beseducation-backend.onrender.com/api/certificates/${id}`, form, {
+      await axios.put(`https://beseducation-backend.onrender.com/certificates/${id}`, form, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("adminToken")}`,
         },

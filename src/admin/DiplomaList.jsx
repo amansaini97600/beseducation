@@ -22,7 +22,7 @@ export default function DiplomaList() {
         const fetchDiplomas = async () => {
             try {
                 const token = localStorage.getItem("adminToken");
-                const res = await fetch("https://beseducation-backend.onrender.com/api/diplomas", {
+                const res = await fetch("https://beseducation-backend.onrender.com/diplomas", {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },

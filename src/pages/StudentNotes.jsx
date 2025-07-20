@@ -25,7 +25,7 @@ const StudentNotes = () => {
     const [searchTerm, setSearchTerm] = useState("");
 
     useEffect(() => {
-        fetch("https://beseducation-backend.onrender.com/api/notes")
+        fetch("https://beseducation-backend.onrender.com/notes")
             .then((res) => res.json())
             .then((data) => setNotes(data))
             .catch((err) => console.error("Error fetching notes:", err));
@@ -102,7 +102,7 @@ const StudentNotes = () => {
                                     View
                                 </a>
                                 <a
-                                    href={`https://beseducation-backend.onrender.com/api/notes/download/${note.filename}`}
+                                    href={`https://beseducation-backend.onrender.com/notes/download/${note.filename}`}
                                     className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700"
                                 >
                                     Download

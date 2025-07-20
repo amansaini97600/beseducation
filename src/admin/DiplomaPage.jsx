@@ -14,12 +14,12 @@ export default function DiplomaPage() {
         const fetchDiploma = async () => {
             try {
                 const token = localStorage.getItem("adminToken");
-                const res1 = await fetch(`https://beseducation-backend.onrender.com/api/diplomas/${id}`, {
+                const res1 = await fetch(`https://beseducation-backend.onrender.com/diplomas/${id}`, {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 const diplomaData = await res1.json();
 
-                const res2 = await fetch(`https://beseducation-backend.onrender.com/api/diplomas/${id}/marks`, {
+                const res2 = await fetch(`https://beseducation-backend.onrender.com/diplomas/${id}/marks`, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("adminToken")}` // add this
                     }

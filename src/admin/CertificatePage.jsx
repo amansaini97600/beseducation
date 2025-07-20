@@ -18,7 +18,7 @@ export default function CertificatePage() {
           navigate("/admin/login");
           return;
         }
-        const res = await fetch(`https://beseducation-backend.onrender.com/api/certificates/${id}`, {
+        const res = await fetch(`https://beseducation-backend.onrender.com/certificates/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

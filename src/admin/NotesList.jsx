@@ -6,7 +6,7 @@ const NotesList = () => {
     const [notes, setNotes] = useState([]);
 
     useEffect(() => {
-        fetch("https://beseducation-backend.onrender.com/api/notes")
+        fetch("https://beseducation-backend.onrender.com/notes")
             .then((res) => res.json())
             .then((data) => setNotes(data))
             .catch((err) => console.error("Error fetching notes:", err));
@@ -16,7 +16,7 @@ const NotesList = () => {
         if (!window.confirm("Are you sure you want to delete this note?")) return;
 
         try {
-            const res = await fetch(`https://beseducation-backend.onrender.com/api/notes/${id}`, {
+            const res = await fetch(`https://beseducation-backend.onrender.com/notes/${id}`, {
                 method: "DELETE",
             });
             if (res.ok) {
