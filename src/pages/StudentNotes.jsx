@@ -31,7 +31,9 @@ const StudentNotes = () => {
             .catch((err) => console.error("Error fetching notes:", err));
     }, []);
 
-    const subjects = ["All", ...new Set(notes.map((note) => note.subject))];
+    // const subjects = ["All", ...new Set(notes.map((note) => note.subject))];
+    const subjects = ["All", ...new Set(Array.isArray(notes) ? notes.map((note) => note.subject) : [])];
+
 
     const filteredNotes = notes.filter((note) => {
         const matchSubject =

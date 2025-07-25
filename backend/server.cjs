@@ -14,7 +14,7 @@ app.use(express.json());
 const PORT = process.env.PORT || 5000;
 
 app.use(cors({
-  origin: 'https://beseducation.in',  // ← yahan apna BigRock domain likho
+  origin: 'https://www.beseducation.in',  // ← yahan apna BigRock domain likho
   credentials: true
 }));
 
@@ -43,7 +43,7 @@ app.post("/api/admin/login", async (req, res) => {
     const isMatch = await bcrypt.compare(password, admin.password);
     // console.log("Form Password:", password);
 
-    //     console.log("Password Match?", isMatch);
+    // console.log("Password Match?", isMatch);
 
     if (!isMatch) {
       return res.status(401).json({ message: "Invalid password" });
@@ -56,9 +56,9 @@ app.post("/api/admin/login", async (req, res) => {
         expiresIn: "1h",
       }
     );
-    //     console.log("Form Email:", email);
-    // console.log("DB Email:", admin.email);
-    // console.log("DB Hash:", admin.password);
+        console.log("Form Email:", email);
+    console.log("DB Email:", admin.email);
+    console.log("DB Hash:", admin.password);
 
     res.json({ token });
   } catch (err) {
