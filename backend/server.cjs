@@ -16,8 +16,6 @@ app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
 
-const cors = require("cors");
-
 const allowedOrigins = [
   "https://beseducation.in",
   "https://www.beseducation.in",
