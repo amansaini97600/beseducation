@@ -72,7 +72,7 @@ app.post("/api/admin/login", async (req, res) => {
         expiresIn: "1h",
       }
     );
-        console.log("Form Email:", email);
+    console.log("Form Email:", email);
     console.log("DB Email:", admin.email);
     console.log("DB Hash:", admin.password);
 
