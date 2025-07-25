@@ -12,19 +12,37 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
 
-app.use(cors({
-  origin: 'https://www.beseducation.in',  // ← yahan apna BigRock domain likho
-  credentials: true
-}));
+const cors = require("cors");
+
+const allowedOrigins = [
+  "https://beseducation.in",
+  "https://www.beseducation.in",
+  "http://localhost:5173" // (dev ke liye optional)
+];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      // mobile apps / curl etc. ke liye origin null ho sakta hai
+      if (!origin || allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+      return callback(new Error("Not allowed by CORS"));
+    },
+    credentials: true,
+  })
+);
+
 
 // const __filename = fileURLToPath(import.meta.url);
 //const __dirname = path.dirname(__filename);
 app.use('/uploads', express.static(__dirname + '/uploads'));
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+
 
 
 app.post("/api/admin/login", async (req, res) => {
