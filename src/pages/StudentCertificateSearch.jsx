@@ -13,7 +13,7 @@ export default function StudentCertificateSearch() {
         setCertificate(null);
 
         try {
-            const res = await fetch(`https://beseducation.onrender.com/api/certificates/search/${regNo}`);
+            const res = await fetch(`https://beseducation.onrender.com/certificates/search/${regNo}`);
             const data = await res.json();
             if (res.ok) {
                 setCertificate(data);
@@ -79,7 +79,7 @@ export default function StudentCertificateSearch() {
 
                         {/* Student Photo */}
                         <img
-                            src={`https://beseducation.onrender.com/api${certificate.photo}`}
+                            src={`https://beseducation.onrender.com${certificate.photo}`}
                             alt="Student"
                             className="absolute top-[136px] left-[581px] w-[88px] h-[125px] object-cover rounded border-[3px] border-orange-400"
                         />

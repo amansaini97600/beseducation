@@ -25,7 +25,7 @@ const StudentNotes = () => {
     const [searchTerm, setSearchTerm] = useState("");
 
     useEffect(() => {
-        fetch("https://beseducation.onrender.com/api/notes")
+        fetch("https://beseducation.onrender.com/notes")
             .then((res) => res.json())
             .then((data) => setNotes(data))
             .catch((err) => console.error("Error fetching notes:", err));
@@ -96,7 +96,7 @@ const StudentNotes = () => {
                             <p className="text-sm text-gray-500 mb-3">{note.subject}</p>
                             <div className="flex gap-2">
                                 <a
-                                    href={`https://beseducation.onrender.com/api/uploads/notes/${note.filename}`}
+                                    href={`https://beseducation.onrender.com/uploads/notes/${note.filename}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700"
@@ -104,7 +104,7 @@ const StudentNotes = () => {
                                     View
                                 </a>
                                 <a
-                                    href={`https://beseducation.onrender.com/api/notes/download/${note.filename}`}
+                                    href={`https://beseducation.onrender.com/notes/download/${note.filename}`}
                                     className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700"
                                 >
                                     Download

@@ -14,7 +14,7 @@ export default function StudentList() {
   const [selectedStudent, setSelectedStudent] = useState(null);
 
   useEffect(() => {
-    fetch("https://beseducation.onrender.com/api/students", {
+    fetch("https://beseducation.onrender.com/students", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("adminToken")}`
       }
@@ -27,7 +27,7 @@ export default function StudentList() {
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete?")) return;
     try {
-      await fetch(`https://beseducation.onrender.com/api/students/${id}`, {
+      await fetch(`https://beseducation.onrender.com/students/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("adminToken")}`,
@@ -46,7 +46,7 @@ export default function StudentList() {
 
   const handleSave = async (updated) => {
     try {
-      await fetch(`https://beseducation.onrender.com/api/students/${updated.id}`, {
+      await fetch(`https://beseducation.onrender.com/students/${updated.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

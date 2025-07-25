@@ -37,7 +37,7 @@ export default function CertificateForm() {
         }
 
         try {
-            const res = await axios.post("https://beseducation.onrender.com/api/certificates", form, {
+            const res = await axios.post("https://beseducation.onrender.com/certificates", form, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("adminToken")}`,
                     "Content-Type": "multipart/form-data",

@@ -18,7 +18,7 @@ export default function CertificatePage() {
           navigate("/admin/login");
           return;
         }
-        const res = await fetch(`https://beseducation.onrender.com/api/certificates/${id}`, {
+        const res = await fetch(`https://beseducation.onrender.com/certificates/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -155,7 +155,7 @@ export default function CertificatePage() {
             <div style={{ position: "absolute", bottom: "179px", left: "300px", fontSize: "16px", fontWeight: "bold" }}>{data.certificate_number}MBD/11907</div>
             <div style={{ position: "absolute", bottom: "179px", right: "95px", fontSize: "16px", fontWeight: "bold" }}>{new Date(data.issue_date).toLocaleDateString("en-GB")}</div>
             <img
-              src={`https://beseducation.onrender.com/api${data.photo}`}
+              src={`https://beseducation.onrender.com${data.photo}`}
               alt="Student"
               style={{
                 position: "absolute",

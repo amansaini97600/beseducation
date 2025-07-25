@@ -6,7 +6,7 @@ const NotesList = () => {
     const [notes, setNotes] = useState([]);
 
     useEffect(() => {
-        fetch("https://beseducation.onrender.com/api/notes")
+        fetch("https://beseducation.onrender.com/notes")
             .then((res) => res.json())
             .then((data) => setNotes(data))
             .catch((err) => console.error("Error fetching notes:", err));
@@ -16,7 +16,7 @@ const NotesList = () => {
         if (!window.confirm("Are you sure you want to delete this note?")) return;
 
         try {
-            const res = await fetch(`https://beseducation.onrender.com/api/notes/${id}`, {
+            const res = await fetch(`https://beseducation.onrender.com/notes/${id}`, {
                 method: "DELETE",
             });
             if (res.ok) {
@@ -58,7 +58,7 @@ const NotesList = () => {
                                         </td>
                                         <td className="p-3 flex gap-2">
                                             <a
-                                                href={`https://beseducation.onrender.com/api/uploads/notes/${note.filename}`}
+                                                href={`https://beseducation.onrender.com/uploads/notes/${note.filename}`}
                                                 download
                                                 className="text-blue-600 hover:underline"
                                             >

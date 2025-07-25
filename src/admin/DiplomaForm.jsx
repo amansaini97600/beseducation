@@ -82,7 +82,7 @@ export default function DiplomaForm() {
     form.append("photo", photo);
 
     try {
-      const res = await axios.post("https://beseducation.onrender.com/api/diplomas", form, {
+      const res = await axios.post("https://beseducation.onrender.com/diplomas", form, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("adminToken")}`,
           "Content-Type": "multipart/form-data",
