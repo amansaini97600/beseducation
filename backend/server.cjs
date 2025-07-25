@@ -16,6 +16,7 @@ app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
 
+
 const allowedOrigins = [
   "https://beseducation.in",
   "https://www.beseducation.in",
