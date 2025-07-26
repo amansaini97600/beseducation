@@ -248,7 +248,7 @@ app.post(
       );
 
       const newId = result.insertId;
-      const certificateNumber = newId + 2344;
+      const certificateNumber = newId + 2193;
 
       // Update certificate_number
       await db.execute(
