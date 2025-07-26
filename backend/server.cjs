@@ -73,9 +73,9 @@ app.post("/api/admin/login", async (req, res) => {
         expiresIn: "1h",
       }
     );
-    console.log("Form Email:", email);
-    console.log("DB Email:", admin.email);
-    console.log("DB Hash:", admin.password);
+    // console.log("Form Email:", email);
+    // console.log("DB Email:", admin.email);
+    // console.log("DB Hash:", admin.password);
 
     res.json({ token });
   } catch (err) {
@@ -191,7 +191,7 @@ app.get("/api/students", async (req, res) => {
   }
 });
 
-// add certificates
+//!add certificates
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 const cert_storage = multer.diskStorage({

@@ -62,7 +62,7 @@ export default function CertificatePage() {
 
         <div style="position: absolute; bottom: 303px; right: 190px; font-size: 22px; font-weight: bold;">${data.duration.toUpperCase()}</div>
 
-        <div style="position: absolute; bottom: 266px; left: 540px; font-size: 22px; font-weight: bold";>\"${data.grade}\"</div>
+        <div style="position: absolute; bottom: 266px; left: 540px; font-size: 22px; font-weight: bold;">"${data.grade}"</div>
 
         <div style="position: absolute; bottom: 229px; left: 420px; font-size: 22px; font-weight: bold;">${data.certificate_number}MBD/11907</div>
 
@@ -155,7 +155,7 @@ export default function CertificatePage() {
             <div style={{ position: "absolute", bottom: "179px", left: "300px", fontSize: "16px", fontWeight: "bold" }}>{data.certificate_number}MBD/11907</div>
             <div style={{ position: "absolute", bottom: "179px", right: "95px", fontSize: "16px", fontWeight: "bold" }}>{new Date(data.issue_date).toLocaleDateString("en-GB")}</div>
             <img
-              src={`https://beseducation.onrender.com/api${data.photo}`}
+              src={`https://beseducation.onrender.com${data.photo}`}
               alt="Student"
               style={{
                 position: "absolute",

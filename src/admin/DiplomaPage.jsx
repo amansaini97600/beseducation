@@ -120,7 +120,7 @@ export default function DiplomaPage() {
                                     </div>
                                     {diploma.photo && (
                                         <img
-                                            src={`https://beseducation.onrender.com/api${diploma.photo}`}
+                                            src={`https://beseducation.onrender.com${diploma.photo}`}
                                             alt="Student"
                                             className="w-30 h-40 object-cover border rounded-md"
                                         />
