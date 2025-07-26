@@ -14,7 +14,7 @@ export default function Dashboard() {
     return;
   }
 
-  fetch("https://beseducation.onrender.com/admin/data", {
+  fetch("https://beseducation.onrender.com/api/admin/data", {
     headers: {
       Authorization: `Bearer ${token}`,
     }

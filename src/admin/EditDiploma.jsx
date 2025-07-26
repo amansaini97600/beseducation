@@ -24,7 +24,7 @@ export default function EditDiploma() {
     const fetchDiploma = async () => {
       try {
         const token = localStorage.getItem("adminToken");
-        const res = await axios.get(`https://beseducation.onrender.com/diplomas/${id}`, {
+        const res = await axios.get(`https://beseducation.onrender.com/api/diplomas/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -114,7 +114,7 @@ export default function EditDiploma() {
 
     try {
       const token = localStorage.getItem("adminToken");
-      await axios.put(`https://beseducation.onrender.com/diplomas/${id}`, updatedData, {
+      await axios.put(`https://beseducation.onrender.com/api/diplomas/${id}`, updatedData, {
         headers: { Authorization: `Bearer ${token}` },
       });
       alert("Diploma updated successfully");

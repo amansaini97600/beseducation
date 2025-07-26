@@ -248,7 +248,7 @@ app.post(
       );
 
       const newId = result.insertId;
-      const certificateNumber = newId + 1200;
+      const certificateNumber = newId + 2344;
 
       // Update certificate_number
       await db.execute(
@@ -442,7 +442,7 @@ app.post("/api/diplomas", diploma_upload.single("photo"), async (req, res) => {
     );
 
     const diplomaId = diplomaResult.insertId;
-    const diplomaNumber = 1200 + diplomaId;
+    const diplomaNumber = 2350 + diplomaId;
 
     await db.execute(`UPDATE diplomas SET diploma_number = ? WHERE id = ?`, [
       diplomaNumber,
