@@ -1,4 +1,4 @@
-const { fileURLToPath } = require('url');
+const { fileURLToPath } = require("url");
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
@@ -6,8 +6,6 @@ const cors = require("cors");
 const db = require("./db.cjs");
 const multer = require("multer");
 const path = require("path");
-const router = express.Router();
-const upload = require("./utils/storage");
 require("dotenv").config();
 
 const app = express();
@@ -18,11 +16,10 @@ app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
 
-
 const allowedOrigins = [
   "https://beseducation.in",
   "https://www.beseducation.in",
-  "http://localhost:5173" // (dev ke liye optional)
+  "http://localhost:5173", // (dev ke liye optional)
 ];
 
 app.use(
@@ -38,13 +35,7 @@ app.use(
   })
 );
 
-
-// const __filename = fileURLToPath(import.meta.url);
-//const __dirname = path.dirname(__filename);
-app.use('/uploads', express.static(__dirname + '/uploads'));
-
-
-
+app.use("/uploads", express.static(__dirname + "/uploads"));
 
 app.post("/api/admin/login", async (req, res) => {
   const { email, password } = req.body;
@@ -60,9 +51,6 @@ app.post("/api/admin/login", async (req, res) => {
 
     const admin = rows[0];
     const isMatch = await bcrypt.compare(password, admin.password);
-    // console.log("Form Password:", password);
-
-    // console.log("Password Match?", isMatch);
 
     if (!isMatch) {
       return res.status(401).json({ message: "Invalid password" });
@@ -104,23 +92,27 @@ const storage = multer.diskStorage({
 const upload_student = multer({ storage });
 
 // POST route to add student
-app.post("/api/admin/students", upload_student.single("photo"), async (req, res) => {
-  const { name, father_name, address, phone, course, joined_date, aadhar } =
-    req.body;
-  const photo = req.file ? req.file.filename : null;
+app.post(
+  "/api/admin/students",
+  upload_student.single("photo"),
+  async (req, res) => {
+    const { name, father_name, address, phone, course, joined_date, aadhar } =
+      req.body;
+    const photo = req.file ? req.file.filename : null;
 
-  try {
-    await db.execute(
-      `INSERT INTO students (name, father_name, address, phone, course, joined_date, aadhar, photo)
+    try {
+      await db.execute(
+        `INSERT INTO students (name, father_name, address, phone, course, joined_date, aadhar, photo)
        VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-      [name, father_name, address, phone, course, joined_date, aadhar, photo]
-    );
-    res.status(200).json({ message: "Student added successfully" });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Failed to add student" });
+        [name, father_name, address, phone, course, joined_date, aadhar, photo]
+      );
+      res.status(200).json({ message: "Student added successfully" });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: "Failed to add student" });
+    }
   }
-});
+);
 
 function verifyToken(req, res, next) {
   const token = req.headers.authorization?.split(" ")[1];
@@ -194,19 +186,19 @@ app.get("/api/students", async (req, res) => {
 });
 
 //!add certificates
-// app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-// const cert_storage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//     cb(null, "uploads/cert_photos"); // make sure this folder exists
-//   },
-//   filename: function (req, file, cb) {
-//     const uniqueName = Date.now() + "-" + file.originalname;
-//     cb(null, uniqueName);
-//   },
-// });
+const cert_storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "uploads/cert_photos"); // make sure this folder exists
+  },
+  filename: function (req, file, cb) {
+    const uniqueName = Date.now() + "-" + file.originalname;
+    cb(null, uniqueName);
+  },
+});
 
-// const cert_upload = multer({ storage: cert_storage });
+const cert_upload = multer({ storage: cert_storage });
 
 app.post(
   "/api/certificates",
@@ -225,14 +217,16 @@ app.post(
       phoneNumber,
     } = req.body;
 
-    const photoUrl = req.file?.path || null; // Cloudinary URL
-    console.log("Photo to send:", photoUrl);
+    const photoPath = req.file
+      ? "/uploads/cert_photos/" + req.file.filename
+      : null;
+    console.log("Photo to send:", photoPath);
 
     try {
       const [result] = await db.execute(
         `INSERT INTO certificates 
-         (name, father_name, course, duration, issue_date, type, grade, photo, aadhar, phone) 
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        (name, father_name, course, duration, issue_date, type, grade,photo,aadhar,phone) 
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
         [
           name,
           fatherName,
@@ -241,7 +235,7 @@ app.post(
           issueDate,
           certificateType,
           grade,
-          photoUrl,
+          photoPath,
           aadharNumber,
           phoneNumber,
         ]
@@ -250,11 +244,13 @@ app.post(
       const newId = result.insertId;
       const certificateNumber = newId + 2193;
 
+      // Update certificate_number
       await db.execute(
         "UPDATE certificates SET certificate_number = ? WHERE id = ?",
         [certificateNumber, newId]
       );
 
+      // Send back the newly inserted certificate's ID
       res.json({
         message: "Certificate saved successfully",
         id: newId,
@@ -266,7 +262,6 @@ app.post(
     }
   }
 );
-
 
 // Backend route
 app.get("/api/certificates/:id", verifyToken, async (req, res) => {
@@ -654,35 +649,41 @@ app.get("/api/certificates/search/:regNo", async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
-//todo diploma search student 
+//todo diploma search student
 
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.get("/api/diplomas/search/:id", async (req, res) => {
-    const diplomaNumber = req.params.id;
-    try {
-        const [result] = await db.execute("SELECT * FROM diplomas WHERE diploma_number = ?", [diplomaNumber]);
+  const diplomaNumber = req.params.id;
+  try {
+    const [result] = await db.execute(
+      "SELECT * FROM diplomas WHERE diploma_number = ?",
+      [diplomaNumber]
+    );
 
-        if (result.length === 0) {
-            return res.status(404).json({ message: "Diploma not found" });
-        }
-
-        res.json(result[0]);
-    } catch (err) {
-        console.error("Error fetching diploma:", err);
-        res.status(500).json({ message: "Server error" });
+    if (result.length === 0) {
+      return res.status(404).json({ message: "Diploma not found" });
     }
+
+    res.json(result[0]);
+  } catch (err) {
+    console.error("Error fetching diploma:", err);
+    res.status(500).json({ message: "Server error" });
+  }
 });
 
 // ✅ Get diploma marks by diploma_number (for student)
 app.get("/api/diplomas/search/:id/marks", async (req, res) => {
-    const diplomaNumber = req.params.id;
-    try {
-        const [marks] = await db.execute("SELECT * FROM diploma_marks WHERE diploma_number = ?", [diplomaNumber]);
-        res.json(marks);
-    } catch (err) {
-        console.error("Error fetching marks:", err);
-        res.status(500).json({ message: "Server error" });
-    }
+  const diplomaNumber = req.params.id;
+  try {
+    const [marks] = await db.execute(
+      "SELECT * FROM diploma_marks WHERE diploma_number = ?",
+      [diplomaNumber]
+    );
+    res.json(marks);
+  } catch (err) {
+    console.error("Error fetching marks:", err);
+    res.status(500).json({ message: "Server error" });
+  }
 });
 
 // Route using token
