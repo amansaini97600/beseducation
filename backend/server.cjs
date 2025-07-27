@@ -101,10 +101,10 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage });
+const upload_student = multer({ storage });
 
 // POST route to add student
-app.post("/api/admin/students", upload.single("photo"), async (req, res) => {
+app.post("/api/admin/students", upload_student.single("photo"), async (req, res) => {
   const { name, father_name, address, phone, course, joined_date, aadhar } =
     req.body;
   const photo = req.file ? req.file.filename : null;
