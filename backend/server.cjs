@@ -6,6 +6,8 @@ const cors = require("cors");
 const db = require("./db.cjs");
 const multer = require("multer");
 const path = require("path");
+const router = express.Router();
+const upload = require("./utils/storage");
 require("dotenv").config();
 
 const app = express();
@@ -192,19 +194,19 @@ app.get("/api/students", async (req, res) => {
 });
 
 //!add certificates
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+// app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-const cert_storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "uploads/cert_photos"); // make sure this folder exists
-  },
-  filename: function (req, file, cb) {
-    const uniqueName = Date.now() + "-" + file.originalname;
-    cb(null, uniqueName);
-  },
-});
+// const cert_storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, "uploads/cert_photos"); // make sure this folder exists
+//   },
+//   filename: function (req, file, cb) {
+//     const uniqueName = Date.now() + "-" + file.originalname;
+//     cb(null, uniqueName);
+//   },
+// });
 
-const cert_upload = multer({ storage: cert_storage });
+// const cert_upload = multer({ storage: cert_storage });
 
 app.post(
   "/api/certificates",
@@ -223,16 +225,14 @@ app.post(
       phoneNumber,
     } = req.body;
 
-    const photoPath = req.file
-      ? "/uploads/cert_photos/" + req.file.filename
-      : null;
-    console.log("Photo to send:", photoPath);
+    const photoUrl = req.file?.path || null; // Cloudinary URL
+    console.log("Photo to send:", photoUrl);
 
     try {
       const [result] = await db.execute(
         `INSERT INTO certificates 
-        (name, father_name, course, duration, issue_date, type, grade,photo,aadhar,phone) 
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+         (name, father_name, course, duration, issue_date, type, grade, photo, aadhar, phone) 
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
         [
           name,
           fatherName,
@@ -241,7 +241,7 @@ app.post(
           issueDate,
           certificateType,
           grade,
-          photoPath,
+          photoUrl,
           aadharNumber,
           phoneNumber,
         ]
@@ -250,13 +250,11 @@ app.post(
       const newId = result.insertId;
       const certificateNumber = newId + 2193;
 
-      // Update certificate_number
       await db.execute(
         "UPDATE certificates SET certificate_number = ? WHERE id = ?",
         [certificateNumber, newId]
       );
 
-      // Send back the newly inserted certificate's ID
       res.json({
         message: "Certificate saved successfully",
         id: newId,
@@ -268,6 +266,7 @@ app.post(
     }
   }
 );
+
 
 // Backend route
 app.get("/api/certificates/:id", verifyToken, async (req, res) => {
