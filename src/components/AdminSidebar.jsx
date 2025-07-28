@@ -8,12 +8,7 @@ export default function AdminSidebar() {
                 <Link to="/admin" className="block hover:bg-blue-700 p-2 rounded">
                     Dashboard
                 </Link>
-                <Link to="/admin/add-student" className="block hover:bg-blue-700 p-2 rounded">
-                    Add Student
-                </Link>
-                <Link to="/admin/students" className="block hover:bg-blue-700 p-2 rounded">
-                    Students List
-                </Link>
+       
                 <Link to="/admin/generate-certificate" className="block hover:bg-blue-700 p-2 rounded">
                     Generate Certificate
                 </Link>
@@ -26,9 +21,7 @@ export default function AdminSidebar() {
 
                 <Link to="/admin/diplomas" className="block hover:bg-blue-700 p-2 rounded">All Diplomas</Link>
 
-                <Link to="/admin/upload-notes" className="block hover:bg-blue-700 p-2 rounded">Add Notes</Link>
-
-                <Link to="/admin/notes" className="block hover:bg-blue-700 p-2 rounded">All Notes</Link>
+              
 
                 <button
                     onClick={() => {

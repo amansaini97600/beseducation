@@ -72,18 +72,25 @@ function verifyToken(req, res, next) {
 }
 
 // ✅ Admin Login
+
 app.post("/api/admin/login", async (req, res) => {
   const { email, password } = req.body;
+
   try {
     const [rows] = await db.execute("SELECT * FROM admins WHERE email = ?", [
       email,
     ]);
-    if (!rows.length)
+
+    if (rows.length === 0) {
       return res.status(401).json({ message: "Email not found" });
+    }
 
     const admin = rows[0];
     const isMatch = await bcrypt.compare(password, admin.password);
-    if (!isMatch) return res.status(401).json({ message: "Invalid password" });
+
+    if (!isMatch) {
+      return res.status(401).json({ message: "Invalid password" });
+    }
 
     const token = jwt.sign(
       { id: admin.id, email: admin.email },
@@ -92,6 +99,7 @@ app.post("/api/admin/login", async (req, res) => {
         expiresIn: "1h",
       }
     );
+
     res.json({ token });
   } catch (err) {
     console.error(err);

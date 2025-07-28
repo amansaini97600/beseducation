@@ -9,8 +9,6 @@ import Dashboard from "./admin/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import AdminAddStudent from "./admin/AdminAddStudent";
-import StudentList from "./admin/studentList";
 import CertificateForm from "./admin/CertificateForm";
 import CertificatePage from "./admin/CertificatePage";
 import CertificateList from "./admin/CertificateList";
@@ -19,8 +17,6 @@ import DiplomaForm from "./admin/DiplomaForm";
 import DiplomaPage from "./admin/DiplomaPage";
 import DiplomaList from "./admin/DiplomaList";
 import EditDiploma from "./admin/EditDiploma";
-import NotesUpload from "./admin/NotesUpload";
-import NotesList from "./admin/NotesList";
 import StudentNotes from "./pages/StudentNotes";
 import StudentCertificateSearch from "./pages/StudentCertificateSearch";
 import StudentDiplomaSearch from "./pages/StudentDiplomaSearch";
@@ -46,8 +42,7 @@ function AppContent() {
 
 
           <Route path="/admin" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-          <Route path="/admin/add-student" element={<ProtectedRoute><AdminAddStudent /></ProtectedRoute>} />
-          <Route path="/admin/students" element={<ProtectedRoute><StudentList /></ProtectedRoute>} />
+    
           <Route path="/admin/generate-certificate" element={<ProtectedRoute><CertificateForm /></ProtectedRoute>} />
           <Route path="/admin/certificate/:id" element={<ProtectedRoute><CertificatePage /></ProtectedRoute>} />
           <Route path="/admin/certificates" element={<ProtectedRoute><CertificateList /></ProtectedRoute>} />
@@ -56,8 +51,6 @@ function AppContent() {
           <Route path="/admin/diploma/:id" element={<ProtectedRoute><DiplomaPage /></ProtectedRoute>} />
           <Route path="/admin/diplomas" element={<ProtectedRoute><DiplomaList /></ProtectedRoute>} />
           <Route path="/admin/edit-diploma/:id" element={<ProtectedRoute><EditDiploma /></ProtectedRoute>} />
-          <Route path="/admin/upload-notes" element={<ProtectedRoute><NotesUpload /></ProtectedRoute>} />
-          <Route path="/admin/notes" element={<ProtectedRoute><NotesList /></ProtectedRoute>} />
         </Routes>
       </div>
       {!isAdminRoute && !isSearchPage && <Footer />} {/* ✅ Footer sirf non-admin pages par */}
