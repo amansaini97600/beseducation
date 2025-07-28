@@ -1,127 +1,128 @@
-import React, { useEffect, useState } from "react";
+// import React, { useEffect, useState } from "react";
 
-import excelImg from "../assets/images/excel.jpeg";
-import pthonImg from "../assets/images/python.webp";
-import htmlImg from "../assets/images/html.webp";
-import javaImg from "../assets/images/java.webp";
-import cppImg from "../assets/images/cpp.webp";
-import phpImg from "../assets/images/php.webp";
-import tallyImg from "../assets/images/tally.png";
+// import excelImg from "../assets/images/excel.jpeg";
+// import pthonImg from "../assets/images/python.webp";
+// import htmlImg from "../assets/images/html.webp";
+// import javaImg from "../assets/images/java.webp";
+// import cppImg from "../assets/images/cpp.webp";
+// import phpImg from "../assets/images/php.webp";
+// import tallyImg from "../assets/images/tally.png";
 
-const subjectImages = {
-    Excel: excelImg,
-// "MS Word": msWordImg,~
-    Tally: tallyImg,
-    // PowerPoint: powerPointImg,
-    HTML: htmlImg,
-    // CSS: cssImg,
-    // JavaScript: javaScriptImg,
-    Default: "/images/note.png",
-};
+// const subjectImages = {
+//     Excel: excelImg,
+// // "MS Word": msWordImg,~
+//     Tally: tallyImg,
+//     // PowerPoint: powerPointImg,
+//     HTML: htmlImg,
+//     // CSS: cssImg,
+//     // JavaScript: javaScriptImg,
+//     Default: "/images/note.png",
+// };
 
 const StudentNotes = () => {
-    const [notes, setNotes] = useState([]);
-    const [selectedSubject, setSelectedSubject] = useState("All");
-    const [searchTerm, setSearchTerm] = useState("");
+    <div>Student Notes</div>
+    // const [notes, setNotes] = useState([]);
+    // const [selectedSubject, setSelectedSubject] = useState("All");
+    // const [searchTerm, setSearchTerm] = useState("");
 
-    useEffect(() => {
-        fetch("https://beseducation.onrender.com/api/notes")
-            .then((res) => res.json())
-            .then((data) => setNotes(data))
-            .catch((err) => console.error("Error fetching notes:", err));
-    }, []);
+    // useEffect(() => {
+    //     fetch("https://beseducation.onrender.com/api/notes")
+    //         .then((res) => res.json())
+    //         .then((data) => setNotes(data))
+    //         .catch((err) => console.error("Error fetching notes:", err));
+    // }, []);
 
-    // const subjects = ["All", ...new Set(notes.map((note) => note.subject))];
-    const subjects = ["All", ...new Set(Array.isArray(notes) ? notes.map((note) => note.subject) : [])];
+    // // const subjects = ["All", ...new Set(notes.map((note) => note.subject))];
+    // const subjects = ["All", ...new Set(Array.isArray(notes) ? notes.map((note) => note.subject) : [])];
 
 
-    const filteredNotes = notes.filter((note) => {
-        const matchSubject =
-            selectedSubject === "All" || note.subject === selectedSubject;
-        const matchSearch =
-            note.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            note.subject.toLowerCase().includes(searchTerm.toLowerCase());
-        return matchSubject && matchSearch;
-    });
+    // const filteredNotes = notes.filter((note) => {
+    //     const matchSubject =
+    //         selectedSubject === "All" || note.subject === selectedSubject;
+    //     const matchSearch =
+    //         note.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    //         note.subject.toLowerCase().includes(searchTerm.toLowerCase());
+    //     return matchSubject && matchSearch;
+    // });
 
-    return (
-        <div className="max-w-6xl mx-auto p-4 mt-6 mb-15 pt-30">
-            <h2 className="text-3xl font-bold text-center mb-6 text-blue-600">
-                Coaching Notes
-            </h2>
+    // return (
+    //     <div className="max-w-6xl mx-auto p-4 mt-6 mb-15 pt-30">
+    //         <h2 className="text-3xl font-bold text-center mb-6 text-blue-600">
+    //             Coaching Notes
+    //         </h2>
 
-            {/* 🔍 Search Input */}
-            <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-6">
-                <div className="flex flex-wrap gap-2">
-                    {subjects.map((subject) => (
-                        <button
-                            key={subject}
-                            onClick={() => setSelectedSubject(subject)}
-                            className={`px-4 py-2 rounded-full border ${selectedSubject === subject
-                                ? "bg-blue-600 text-white"
-                                : "bg-white text-blue-600 border-blue-600"
-                                } transition`}
-                        >
-                            {subject}
-                        </button>
-                    ))}
-                </div>
+    //         {/* 🔍 Search Input */}
+    //         <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-6">
+    //             <div className="flex flex-wrap gap-2">
+    //                 {subjects.map((subject) => (
+    //                     <button
+    //                         key={subject}
+    //                         onClick={() => setSelectedSubject(subject)}
+    //                         className={`px-4 py-2 rounded-full border ${selectedSubject === subject
+    //                             ? "bg-blue-600 text-white"
+    //                             : "bg-white text-blue-600 border-blue-600"
+    //                             } transition`}
+    //                     >
+    //                         {subject}
+    //                     </button>
+    //                 ))}
+    //             </div>
 
-                <input
-                    type="text"
-                    placeholder="Search by title or subject"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="mt-2 md:mt-0 w-full md:w-72 px-4 py-2 border rounded focus:outline-blue-500"
-                />
-            </div>
+    //             <input
+    //                 type="text"
+    //                 placeholder="Search by title or subject"
+    //                 value={searchTerm}
+    //                 onChange={(e) => setSearchTerm(e.target.value)}
+    //                 className="mt-2 md:mt-0 w-full md:w-72 px-4 py-2 border rounded focus:outline-blue-500"
+    //             />
+    //         </div>
 
-            {/* 📚 Notes Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                {filteredNotes.map((note) => {
-                    const img = subjectImages[note.subject] || subjectImages.Default;
-                    return (
-                        <div
-                            key={note.id}
-                            className="bg-white p-4 rounded-xl shadow hover:shadow-lg transition"
-                        >
-                            <img
-                                src={img}
-                                alt={note.subject}
-                                className="w-full h-40 object-contain mb-4"
-                            />
-                            <h3 className="text-xl font-semibold text-gray-800">
-                                {note.title}
-                            </h3>
-                            <p className="text-sm text-gray-500 mb-3">{note.subject}</p>
-                            <div className="flex gap-2">
-                                <a
-                                    href={`https://beseducation.onrender.com/api/uploads/notes/${note.filename}`}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700"
-                                >
-                                    View
-                                </a>
-                                <a
-                                    href={`https://beseducation.onrender.com/api/notes/download/${note.filename}`}
-                                    className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700"
-                                >
-                                    Download
-                                </a>
-                            </div>
-                        </div>
-                    );
-                })}
-            </div>
+    //         {/* 📚 Notes Grid */}
+    //         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+    //             {filteredNotes.map((note) => {
+    //                 const img = subjectImages[note.subject] || subjectImages.Default;
+    //                 return (
+    //                     <div
+    //                         key={note.id}
+    //                         className="bg-white p-4 rounded-xl shadow hover:shadow-lg transition"
+    //                     >
+    //                         <img
+    //                             src={img}
+    //                             alt={note.subject}
+    //                             className="w-full h-40 object-contain mb-4"
+    //                         />
+    //                         <h3 className="text-xl font-semibold text-gray-800">
+    //                             {note.title}
+    //                         </h3>
+    //                         <p className="text-sm text-gray-500 mb-3">{note.subject}</p>
+    //                         <div className="flex gap-2">
+    //                             <a
+    //                                 href={`https://beseducation.onrender.com/api/uploads/notes/${note.filename}`}
+    //                                 target="_blank"
+    //                                 rel="noopener noreferrer"
+    //                                 className="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700"
+    //                             >
+    //                                 View
+    //                             </a>
+    //                             <a
+    //                                 href={`https://beseducation.onrender.com/api/notes/download/${note.filename}`}
+    //                                 className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700"
+    //                             >
+    //                                 Download
+    //                             </a>
+    //                         </div>
+    //                     </div>
+    //                 );
+    //             })}
+    //         </div>
 
-            {filteredNotes.length === 0 && (
-                <p className="text-center text-gray-500 mt-8">
-                    No notes found.
-                </p>
-            )}
-        </div>
-    );
+    //         {filteredNotes.length === 0 && (
+    //             <p className="text-center text-gray-500 mt-8">
+    //                 No notes found.
+    //             </p>
+    //         )}
+    //     </div>
+    // );
 };
 
 export default StudentNotes;
